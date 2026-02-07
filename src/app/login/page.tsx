@@ -2,8 +2,11 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 export default function LoginPage() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -12,26 +15,28 @@ export default function LoginPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle login
-    console.log('Login submitted:', formData);
-    alert('Login functionality would be implemented with backend authentication.');
+    // Redirect to dashboard
+    router.push('/dashboard');
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-emerald-900 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-[#0c4a6e] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full">
         {/* Logo */}
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center">
-            <div className="w-12 h-12 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-xl flex items-center justify-center">
-              <span className="text-white font-bold text-lg">GN</span>
-            </div>
-            <span className="ml-3 text-2xl font-bold text-white">Global Nexus</span>
+          <Link href="/" className="inline-flex items-center justify-center">
+            <Image 
+              src="/images/photos/lwjkWDHt3aKtY1uBWVMpmJ3FxeVfe3AqrYZy2G4k.png" 
+              alt="Global Nexus Inc" 
+              width={200}
+              height={50}
+              className="h-12 w-auto"
+            />
           </Link>
         </div>
 
         {/* Login Card */}
-        <div className="bg-white rounded-2xl shadow-xl p-8">
+        <div className="bg-white rounded-3xl shadow-xl p-8">
           <div className="text-center mb-8">
             <h2 className="text-2xl font-bold text-gray-900">Welcome Back</h2>
             <p className="text-gray-600 mt-2">Sign in to access your account</p>
@@ -47,7 +52,7 @@ export default function LoginPage() {
                 id="email"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0ea5e9] focus:border-[#0ea5e9] transition-colors"
                 placeholder="you@example.com"
                 required
               />
@@ -62,7 +67,7 @@ export default function LoginPage() {
                 id="password"
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0ea5e9] focus:border-[#0ea5e9] transition-colors"
                 placeholder="••••••••"
                 required
               />
@@ -75,20 +80,20 @@ export default function LoginPage() {
                   type="checkbox"
                   checked={formData.rememberMe}
                   onChange={(e) => setFormData({ ...formData, rememberMe: e.target.checked })}
-                  className="h-4 w-4 text-emerald-600 focus:ring-emerald-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-[#0ea5e9] focus:ring-[#0ea5e9] border-gray-300 rounded"
                 />
                 <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
                   Remember me
                 </label>
               </div>
-              <a href="#" className="text-sm text-emerald-600 hover:text-emerald-500 font-medium">
+              <a href="#" className="text-sm text-[#0ea5e9] hover:text-[#0284c7] font-medium">
                 Forgot password?
               </a>
             </div>
 
             <button
               type="submit"
-              className="w-full px-6 py-4 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition-colors flex items-center justify-center"
+              className="w-full px-6 py-4 bg-gradient-to-r from-[#0ea5e9] to-[#0284c7] text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-sky-500/25 transition-all flex items-center justify-center"
             >
               Sign In
               <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -126,7 +131,7 @@ export default function LoginPage() {
           {/* Sign Up Link */}
           <p className="mt-8 text-center text-sm text-gray-600">
             Don&apos;t have an account?{' '}
-            <Link href="/register" className="text-emerald-600 hover:text-emerald-500 font-medium">
+            <Link href="/register" className="text-[#0ea5e9] hover:text-[#0284c7] font-medium">
               Create an account
             </Link>
           </p>

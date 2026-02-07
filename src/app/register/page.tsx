@@ -2,15 +2,17 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 export default function RegisterPage() {
+  const router = useRouter();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     // Step 1: Personal Info
     firstName: '',
     lastName: '',
     dateOfBirth: '',
-    ssn: '',
     // Step 2: Contact Info
     email: '',
     phone: '',
@@ -29,10 +31,10 @@ export default function RegisterPage() {
   });
 
   const steps = [
-    { number: 1, title: 'Personal', icon: '👤' },
-    { number: 2, title: 'Contact', icon: '📧' },
-    { number: 3, title: 'Account', icon: '💳' },
-    { number: 4, title: 'Security', icon: '🔒' },
+    { number: 1, title: 'Personal', icon: 'fa-user' },
+    { number: 2, title: 'Contact', icon: 'fa-envelope' },
+    { number: 3, title: 'Account', icon: 'fa-credit-card' },
+    { number: 4, title: 'Security', icon: 'fa-lock' },
   ];
 
   const handleNext = () => {
@@ -45,51 +47,47 @@ export default function RegisterPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Registration submitted:', formData);
-    alert('Account created successfully! Welcome to Global Nexus Inc.');
+    router.push('/dashboard');
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-emerald-900 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-[#0c4a6e] py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-2xl mx-auto">
         {/* Logo */}
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center">
-            <div className="w-12 h-12 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-xl flex items-center justify-center">
-              <span className="text-white font-bold text-lg">GN</span>
-            </div>
-            <span className="ml-3 text-2xl font-bold text-white">Global Nexus</span>
+          <Link href="/" className="inline-flex items-center justify-center">
+            <Image 
+              src="/images/photos/lwjkWDHt3aKtY1uBWVMpmJ3FxeVfe3AqrYZy2G4k.png" 
+              alt="Global Nexus Inc" 
+              width={200}
+              height={50}
+              className="h-12 w-auto"
+            />
           </Link>
         </div>
 
         {/* Registration Card */}
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div className="bg-white rounded-3xl shadow-xl p-8">
           {/* Progress Steps */}
-          <div className="bg-gray-50 px-8 py-6 border-b border-gray-200">
+          <div className="mb-8">
             <div className="flex justify-between items-center">
               {steps.map((s, index) => (
                 <div key={s.number} className="flex items-center">
-                  <div className={`flex items-center justify-center w-10 h-10 rounded-full border-2 transition-colors ${
-                    step >= s.number
-                      ? 'bg-emerald-500 border-emerald-500 text-white'
-                      : 'border-gray-300 text-gray-400'
-                  }`}>
-                    {step > s.number ? (
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    ) : (
-                      <span className="text-sm font-semibold">{s.number}</span>
-                    )}
+                  <div className="flex flex-col items-center">
+                    <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
+                      step >= s.number 
+                        ? 'bg-gradient-to-r from-[#0ea5e9] to-[#0284c7] text-white shadow-lg shadow-sky-500/25' 
+                        : 'bg-gray-100 text-gray-400'
+                    }`}>
+                      <i className={`fa-solid ${s.icon}`}></i>
+                    </div>
+                    <span className={`mt-2 text-xs font-medium ${step >= s.number ? 'text-[#0ea5e9]' : 'text-gray-400'}`}>
+                      {s.title}
+                    </span>
                   </div>
-                  <span className={`ml-2 text-sm font-medium hidden sm:block ${
-                    step >= s.number ? 'text-emerald-600' : 'text-gray-400'
-                  }`}>
-                    {s.title}
-                  </span>
                   {index < steps.length - 1 && (
-                    <div className={`w-8 sm:w-16 h-0.5 mx-2 ${
-                      step > s.number ? 'bg-emerald-500' : 'bg-gray-300'
+                    <div className={`w-12 sm:w-20 h-1 mx-2 rounded transition-all ${
+                      step > s.number ? 'bg-[#0ea5e9]' : 'bg-gray-200'
                     }`}></div>
                   )}
                 </div>
@@ -97,14 +95,11 @@ export default function RegisterPage() {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="p-8">
-            {/* Step 1: Personal Information */}
+          <form onSubmit={handleSubmit}>
+            {/* Step 1: Personal Info */}
             {step === 1 && (
-              <div className="space-y-6">
-                <div className="text-center mb-6">
-                  <h2 className="text-2xl font-bold text-gray-900">Personal Information</h2>
-                  <p className="text-gray-600 mt-2">Tell us about yourself</p>
-                </div>
+              <div className="space-y-5">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Personal Information</h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">First Name</label>
@@ -112,7 +107,7 @@ export default function RegisterPage() {
                       type="text"
                       value={formData.firstName}
                       onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0ea5e9] focus:border-[#0ea5e9] transition-colors"
                       placeholder="John"
                       required
                     />
@@ -123,7 +118,7 @@ export default function RegisterPage() {
                       type="text"
                       value={formData.lastName}
                       onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0ea5e9] focus:border-[#0ea5e9] transition-colors"
                       placeholder="Doe"
                       required
                     />
@@ -135,40 +130,25 @@ export default function RegisterPage() {
                     type="date"
                     value={formData.dateOfBirth}
                     onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0ea5e9] focus:border-[#0ea5e9] transition-colors"
                     required
                   />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Social Security Number</label>
-                  <input
-                    type="text"
-                    value={formData.ssn}
-                    onChange={(e) => setFormData({ ...formData, ssn: e.target.value })}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-                    placeholder="XXX-XX-XXXX"
-                    required
-                  />
-                  <p className="mt-1 text-xs text-gray-500">Your SSN is encrypted and securely stored</p>
                 </div>
               </div>
             )}
 
-            {/* Step 2: Contact Information */}
+            {/* Step 2: Contact Info */}
             {step === 2 && (
-              <div className="space-y-6">
-                <div className="text-center mb-6">
-                  <h2 className="text-2xl font-bold text-gray-900">Contact Information</h2>
-                  <p className="text-gray-600 mt-2">How can we reach you?</p>
-                </div>
+              <div className="space-y-5">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Contact Information</h3>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
                   <input
                     type="email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-                    placeholder="john@example.com"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0ea5e9] focus:border-[#0ea5e9] transition-colors"
+                    placeholder="you@example.com"
                     required
                   />
                 </div>
@@ -178,53 +158,53 @@ export default function RegisterPage() {
                     type="tel"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-                    placeholder="(555) 123-4567"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0ea5e9] focus:border-[#0ea5e9] transition-colors"
+                    placeholder="+1 (555) 000-0000"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Street Address</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Address</label>
                   <input
                     type="text"
                     value={formData.address}
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0ea5e9] focus:border-[#0ea5e9] transition-colors"
                     placeholder="123 Main St"
                     required
                   />
                 </div>
-                <div className="grid grid-cols-6 gap-4">
-                  <div className="col-span-3">
+                <div className="grid grid-cols-3 gap-4">
+                  <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">City</label>
                     <input
                       type="text"
                       value={formData.city}
                       onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-                      placeholder="New York"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0ea5e9] focus:border-[#0ea5e9] transition-colors"
+                      placeholder="City"
                       required
                     />
                   </div>
-                  <div className="col-span-1">
+                  <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">State</label>
                     <input
                       type="text"
                       value={formData.state}
                       onChange={(e) => setFormData({ ...formData, state: e.target.value })}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-                      placeholder="NY"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0ea5e9] focus:border-[#0ea5e9] transition-colors"
+                      placeholder="State"
                       required
                     />
                   </div>
-                  <div className="col-span-2">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">ZIP Code</label>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Zip Code</label>
                     <input
                       type="text"
                       value={formData.zipCode}
                       onChange={(e) => setFormData({ ...formData, zipCode: e.target.value })}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-                      placeholder="10001"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0ea5e9] focus:border-[#0ea5e9] transition-colors"
+                      placeholder="00000"
                       required
                     />
                   </div>
@@ -232,35 +212,29 @@ export default function RegisterPage() {
               </div>
             )}
 
-            {/* Step 3: Account Information */}
+            {/* Step 3: Account Info */}
             {step === 3 && (
-              <div className="space-y-6">
-                <div className="text-center mb-6">
-                  <h2 className="text-2xl font-bold text-gray-900">Account Information</h2>
-                  <p className="text-gray-600 mt-2">Select your account preferences</p>
-                </div>
+              <div className="space-y-5">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Account Details</h3>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Account Type</label>
                   <div className="grid grid-cols-2 gap-4">
-                    {['Checking', 'Savings', 'Money Market', 'CD'].map((type) => (
-                      <label
+                    {['checking', 'savings'].map((type) => (
+                      <button
                         key={type}
-                        className={`flex items-center justify-center p-4 border-2 rounded-xl cursor-pointer transition-colors ${
-                          formData.accountType === type.toLowerCase()
-                            ? 'border-emerald-500 bg-emerald-50 text-emerald-700'
+                        type="button"
+                        onClick={() => setFormData({ ...formData, accountType: type })}
+                        className={`p-4 rounded-xl border-2 transition-all ${
+                          formData.accountType === type
+                            ? 'border-[#0ea5e9] bg-sky-50 text-[#0ea5e9]'
                             : 'border-gray-200 hover:border-gray-300'
                         }`}
                       >
-                        <input
-                          type="radio"
-                          name="accountType"
-                          value={type.toLowerCase()}
-                          checked={formData.accountType === type.toLowerCase()}
-                          onChange={(e) => setFormData({ ...formData, accountType: e.target.value })}
-                          className="sr-only"
-                        />
-                        <span className="font-medium">{type}</span>
-                      </label>
+                        <div className="text-center">
+                          <i className={`fa-solid ${type === 'checking' ? 'fa-credit-card' : 'fa-piggy-bank'} text-2xl mb-2`}></i>
+                          <p className="font-semibold capitalize">{type}</p>
+                        </div>
+                      </button>
                     ))}
                   </div>
                 </div>
@@ -269,15 +243,15 @@ export default function RegisterPage() {
                   <select
                     value={formData.employmentStatus}
                     onChange={(e) => setFormData({ ...formData, employmentStatus: e.target.value })}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0ea5e9] focus:border-[#0ea5e9] transition-colors"
                     required
                   >
                     <option value="">Select status</option>
                     <option value="employed">Employed</option>
-                    <option value="self-employed">Self-Employed</option>
-                    <option value="retired">Retired</option>
-                    <option value="student">Student</option>
+                    <option value="self-employed">Self Employed</option>
                     <option value="unemployed">Unemployed</option>
+                    <option value="student">Student</option>
+                    <option value="retired">Retired</option>
                   </select>
                 </div>
                 <div>
@@ -285,15 +259,14 @@ export default function RegisterPage() {
                   <select
                     value={formData.annualIncome}
                     onChange={(e) => setFormData({ ...formData, annualIncome: e.target.value })}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0ea5e9] focus:border-[#0ea5e9] transition-colors"
                     required
                   >
                     <option value="">Select range</option>
-                    <option value="0-25000">Under $25,000</option>
+                    <option value="0-25000">$0 - $25,000</option>
                     <option value="25000-50000">$25,000 - $50,000</option>
                     <option value="50000-100000">$50,000 - $100,000</option>
-                    <option value="100000-200000">$100,000 - $200,000</option>
-                    <option value="200000+">$200,000+</option>
+                    <option value="100000+">$100,000+</option>
                   </select>
                 </div>
               </div>
@@ -301,23 +274,18 @@ export default function RegisterPage() {
 
             {/* Step 4: Security */}
             {step === 4 && (
-              <div className="space-y-6">
-                <div className="text-center mb-6">
-                  <h2 className="text-2xl font-bold text-gray-900">Create Your Password</h2>
-                  <p className="text-gray-600 mt-2">Secure your account</p>
-                </div>
+              <div className="space-y-5">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Create Password</h3>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
                   <input
                     type="password"
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-                    placeholder="Create a strong password"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0ea5e9] focus:border-[#0ea5e9] transition-colors"
+                    placeholder="••••••••"
                     required
-                    minLength={8}
                   />
-                  <p className="mt-1 text-xs text-gray-500">Minimum 8 characters with letters and numbers</p>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
@@ -325,89 +293,79 @@ export default function RegisterPage() {
                     type="password"
                     value={formData.confirmPassword}
                     onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-                    placeholder="Confirm your password"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0ea5e9] focus:border-[#0ea5e9] transition-colors"
+                    placeholder="••••••••"
                     required
                   />
                 </div>
-                <div className="flex items-start">
+                <div className="flex items-start space-x-3">
                   <input
                     type="checkbox"
                     id="agreeTerms"
                     checked={formData.agreeTerms}
                     onChange={(e) => setFormData({ ...formData, agreeTerms: e.target.checked })}
-                    className="h-4 w-4 text-emerald-600 focus:ring-emerald-500 border-gray-300 rounded mt-1"
+                    className="mt-1 h-4 w-4 text-[#0ea5e9] focus:ring-[#0ea5e9] border-gray-300 rounded"
                     required
                   />
-                  <label htmlFor="agreeTerms" className="ml-2 text-sm text-gray-600">
+                  <label htmlFor="agreeTerms" className="text-sm text-gray-600">
                     I agree to the{' '}
-                    <Link href="/terms" className="text-emerald-600 hover:text-emerald-500">
-                      Terms of Service
-                    </Link>{' '}
-                    and{' '}
-                    <Link href="/privacy" className="text-emerald-600 hover:text-emerald-500">
-                      Privacy Policy
-                    </Link>
+                    <Link href="/terms" className="text-[#0ea5e9] hover:text-[#0284c7]">Terms of Service</Link>
+                    {' '}and{' '}
+                    <Link href="/privacy" className="text-[#0ea5e9] hover:text-[#0284c7]">Privacy Policy</Link>
                   </label>
                 </div>
               </div>
             )}
 
             {/* Navigation Buttons */}
-            <div className="flex justify-between mt-8 pt-6 border-t border-gray-200">
+            <div className="flex justify-between mt-8">
               {step > 1 ? (
                 <button
                   type="button"
                   onClick={handlePrev}
-                  className="px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-xl hover:bg-gray-50 transition-colors"
+                  className="px-6 py-3 border border-gray-300 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-colors"
                 >
-                  Previous
+                  <i className="fa-solid fa-arrow-left mr-2"></i>
+                  Back
                 </button>
               ) : (
                 <div></div>
               )}
+              
               {step < 4 ? (
                 <button
                   type="button"
                   onClick={handleNext}
-                  className="px-6 py-3 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition-colors flex items-center"
+                  className="px-8 py-3 bg-gradient-to-r from-[#0ea5e9] to-[#0284c7] text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-sky-500/25 transition-all"
                 >
                   Continue
-                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
+                  <i className="fa-solid fa-arrow-right ml-2"></i>
                 </button>
               ) : (
                 <button
                   type="submit"
-                  className="px-6 py-3 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition-colors flex items-center"
+                  className="px-8 py-3 bg-gradient-to-r from-[#0ea5e9] to-[#0284c7] text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-sky-500/25 transition-all"
                 >
                   Create Account
-                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
+                  <i className="fa-solid fa-check ml-2"></i>
                 </button>
               )}
             </div>
           </form>
 
           {/* Sign In Link */}
-          <div className="bg-gray-50 px-8 py-4 text-center border-t border-gray-200">
-            <p className="text-sm text-gray-600">
-              Already have an account?{' '}
-              <Link href="/login" className="text-emerald-600 hover:text-emerald-500 font-medium">
-                Sign in
-              </Link>
-            </p>
-          </div>
+          <p className="mt-8 text-center text-sm text-gray-600">
+            Already have an account?{' '}
+            <Link href="/login" className="text-[#0ea5e9] hover:text-[#0284c7] font-medium">
+              Sign in
+            </Link>
+          </p>
         </div>
 
         {/* Security Note */}
         <div className="mt-6 flex items-center justify-center text-sm text-gray-400">
-          <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-          </svg>
-          Protected by 256-bit SSL encryption • FDIC Insured
+          <i className="fa-solid fa-lock mr-2"></i>
+          Your information is protected with bank-level security
         </div>
       </div>
     </div>
