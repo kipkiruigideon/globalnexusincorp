@@ -22,29 +22,27 @@ export default function Home() {
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
           <div className="max-w-3xl">
-            {/* Animated Badge */}
-            <div className="inline-flex items-center px-4 py-2 bg-primary/20 rounded-full text-primary text-sm font-medium mb-6 animate-float">
-              <i className="fas fa-sparkles mr-2"></i>
-              People First Banking
-            </div>
-
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              We do banking <span className="text-primary">differently</span>
+              Global Nexus Inc
             </h1>
             <p className="text-xl text-gray-300 mb-8 max-w-2xl">
-              We believe that people come first, and that everyone deserves a great experience every step of the way.
+              We do banking differently. We believe that people come first, and that everyone deserves a great experience every step of the way.
             </p>
 
             <div className="flex flex-wrap gap-4">
               <Link href="/register" className="group relative inline-flex items-center">
-                <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary-dark rounded-xl blur opacity-75 group-hover:opacity-100 transition-opacity"></div>
-                <span className="relative flex items-center px-8 py-4 bg-gradient-to-r from-primary to-primary-dark rounded-xl text-white font-medium transition-transform group-hover:scale-105">
+                <span className="flex items-center px-8 py-4 bg-primary hover:bg-primary-dark rounded-xl text-white font-medium transition-all">
+                  <i className="fas fa-user-plus mr-3"></i>
                   Open Account Today
-                  <i className="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                 </span>
               </Link>
-              <Link href="/login" className="px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 rounded-xl text-white font-medium transition-all">
+              <Link href="/login" className="flex items-center px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 rounded-xl text-white font-medium transition-all">
+                <i className="fas fa-sign-in-alt mr-3"></i>
                 Login to Banking
+              </Link>
+              <Link href="#" className="flex items-center px-8 py-4 bg-primary hover:bg-primary-dark rounded-xl text-white font-medium transition-all">
+                <i className="fas fa-mobile-alt mr-3"></i>
+                Download App
               </Link>
             </div>
           </div>
@@ -52,40 +50,42 @@ export default function Home() {
           {/* Info Cards */}
           <div className="grid md:grid-cols-3 gap-6 mt-16">
             {/* Routing Number Card */}
-            <div className="group bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/20 transition-all duration-300">
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <i className="fas fa-hashtag text-primary text-xl"></i>
-                </div>
+            <div className="group bg-gradient-to-r from-primary to-primary-dark rounded-2xl p-6 hover:shadow-xl hover:shadow-primary/20 transition-all duration-300">
+              <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="text-white font-semibold">Routing Number</h3>
-                  <p className="text-gray-400">256078514</p>
+                  <h3 className="text-white/80 text-sm font-medium uppercase tracking-wide">ROUTING #</h3>
+                  <p className="text-white text-2xl font-bold mt-1">251480576</p>
+                </div>
+                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                  <i className="fas fa-landmark text-white text-xl"></i>
                 </div>
               </div>
             </div>
 
             {/* Hours Card */}
-            <div className="group bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/20 transition-all duration-300">
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <i className="fas fa-clock text-primary text-xl"></i>
-                </div>
+            <div className="group bg-gradient-to-r from-primary to-primary-dark rounded-2xl p-6 hover:shadow-xl hover:shadow-primary/20 transition-all duration-300">
+              <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="text-white font-semibold">Banking Hours</h3>
-                  <p className="text-gray-400">Mon-Fri 9AM-5PM</p>
+                  <h3 className="text-white/80 text-sm font-medium uppercase tracking-wide">BRANCH HOURS</h3>
+                  <p className="text-white text-xl font-bold mt-1">Mon-Fri: 9AM-5PM</p>
+                  <p className="text-white/70 text-sm">Sat: 9AM-1PM</p>
+                </div>
+                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                  <i className="fas fa-clock text-white text-xl"></i>
                 </div>
               </div>
             </div>
 
             {/* Support Card */}
-            <div className="group bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/20 transition-all duration-300">
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <i className="fas fa-headset text-primary text-xl"></i>
-                </div>
+            <div className="group bg-gradient-to-r from-primary to-primary-dark rounded-2xl p-6 hover:shadow-xl hover:shadow-primary/20 transition-all duration-300">
+              <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="text-white font-semibold">24/7 Support</h3>
-                  <p className="text-gray-400">Always here to help</p>
+                  <h3 className="text-white/80 text-sm font-medium uppercase tracking-wide">24/7 SUPPORT</h3>
+                  <p className="text-white text-xl font-bold mt-1">1-800-BANKING</p>
+                  <p className="text-white/70 text-sm">Always here to help</p>
+                </div>
+                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                  <i className="fas fa-phone text-white text-xl"></i>
                 </div>
               </div>
             </div>

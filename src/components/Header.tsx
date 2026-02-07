@@ -56,8 +56,7 @@ export default function Header() {
                   </div>
                 </div>
                 <div>
-                  <span className="text-xl font-bold bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">Global Nexus</span>
-                  <span className="block text-xs text-gray-500 dark:text-gray-400">Federal Credit Union</span>
+                  <span className="text-xl font-bold text-primary">Global Nexus</span>
                 </div>
               </Link>
             </div>
@@ -156,13 +155,14 @@ export default function Header() {
 
               {/* Auth buttons - Desktop */}
               <div className="hidden lg:flex items-center space-x-3">
-                <Link href="/login" className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors">
+                <Link href="/login" className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors font-medium">
                   Login
                 </Link>
                 <Link href="/register" className="relative group">
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary-dark rounded-lg blur opacity-75 group-hover:opacity-100 transition-opacity"></div>
-                  <span className="relative block px-6 py-2.5 bg-gradient-to-r from-primary to-primary-dark rounded-lg text-white font-medium transition-transform group-hover:scale-105">
-                    Get Started
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary-dark rounded-full blur opacity-75 group-hover:opacity-100 transition-opacity"></div>
+                  <span className="relative flex items-center px-6 py-2.5 bg-gradient-to-r from-primary to-primary-dark rounded-full text-white font-medium transition-transform group-hover:scale-105">
+                    <i className="fas fa-sparkles mr-2"></i>
+                    Open Account
                   </span>
                 </Link>
               </div>
