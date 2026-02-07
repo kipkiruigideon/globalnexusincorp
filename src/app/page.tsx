@@ -31,18 +31,18 @@ export default function Home() {
 
             <div className="flex flex-wrap gap-4">
               <Link href="/register" className="group relative inline-flex items-center">
-                <span className="flex items-center px-8 py-4 bg-primary hover:bg-primary-dark rounded-xl text-white font-medium transition-all">
+                <span className="flex items-center px-8 py-4 bg-[#0ea5e9] hover:bg-[#0284c7] rounded-xl text-white font-medium transition-all">
                   <i className="fas fa-user-plus mr-3"></i>
-                  Open Account Today
+                  Open Account<br/>Today
                 </span>
               </Link>
               <Link href="/login" className="flex items-center px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 rounded-xl text-white font-medium transition-all">
                 <i className="fas fa-sign-in-alt mr-3"></i>
-                Login to Banking
+                Login to<br/>Banking
               </Link>
-              <Link href="#" className="flex items-center px-8 py-4 bg-primary hover:bg-primary-dark rounded-xl text-white font-medium transition-all">
+              <Link href="#" className="flex items-center px-8 py-4 bg-[#0ea5e9] hover:bg-[#0284c7] rounded-xl text-white font-medium transition-all">
                 <i className="fas fa-mobile-alt mr-3"></i>
-                Download App
+                Download<br/>App
               </Link>
             </div>
           </div>
@@ -50,7 +50,7 @@ export default function Home() {
           {/* Info Cards */}
           <div className="grid md:grid-cols-3 gap-6 mt-16">
             {/* Routing Number Card */}
-            <div className="group bg-gradient-to-r from-primary to-primary-dark rounded-2xl p-6 hover:shadow-xl hover:shadow-primary/20 transition-all duration-300">
+            <div className="group bg-[#0ea5e9] rounded-2xl p-6 hover:shadow-xl hover:shadow-sky-500/30 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-white/80 text-sm font-medium uppercase tracking-wide">ROUTING #</h3>
@@ -63,7 +63,7 @@ export default function Home() {
             </div>
 
             {/* Hours Card */}
-            <div className="group bg-gradient-to-r from-primary to-primary-dark rounded-2xl p-6 hover:shadow-xl hover:shadow-primary/20 transition-all duration-300">
+            <div className="group bg-[#0ea5e9] rounded-2xl p-6 hover:shadow-xl hover:shadow-sky-500/30 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-white/80 text-sm font-medium uppercase tracking-wide">BRANCH HOURS</h3>
@@ -77,7 +77,7 @@ export default function Home() {
             </div>
 
             {/* Support Card */}
-            <div className="group bg-gradient-to-r from-primary to-primary-dark rounded-2xl p-6 hover:shadow-xl hover:shadow-primary/20 transition-all duration-300">
+            <div className="group bg-[#0ea5e9] rounded-2xl p-6 hover:shadow-xl hover:shadow-sky-500/30 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-white/80 text-sm font-medium uppercase tracking-wide">24/7 SUPPORT</h3>
@@ -97,50 +97,50 @@ export default function Home() {
       <section className="py-20 bg-gray-50 dark:bg-gray-800/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <span className="text-primary font-semibold">Global Nexus Inc Rates</span>
+            <span className="text-[#0ea5e9] font-semibold">Global Nexus Inc Rates</span>
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mt-2">Member Care</h2>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* High Yield Savings */}
-            <div className="group bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-xl hover:border-primary/50 transition-all duration-300">
-              <div className="inline-flex items-center px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium mb-4">
+            <div className="group bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-xl hover:border-sky-500/50 transition-all duration-300">
+              <div className="inline-flex items-center px-3 py-1 bg-sky-500/10 text-[#0ea5e9] rounded-full text-xs font-medium mb-4">
                 FEATURED
               </div>
-              <div className="text-4xl font-bold text-gray-900 dark:text-white mb-1 group-hover:text-primary transition-colors">3.75%</div>
+              <div className="text-4xl font-bold text-gray-900 dark:text-white mb-1 group-hover:text-[#0ea5e9] transition-colors">3.75%</div>
               <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">APY*</div>
               <div className="text-lg font-semibold text-gray-700 dark:text-gray-300">HIGH YIELD SAVINGS</div>
               <div className="text-sm text-gray-500 dark:text-gray-400">High Yield Savings Rate</div>
             </div>
 
             {/* Certificate */}
-            <div className="group bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-xl hover:border-primary/50 transition-all duration-300">
+            <div className="group bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-xl hover:border-sky-500/50 transition-all duration-300">
               <div className="inline-flex items-center px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-full text-xs font-medium mb-4">
                 SAVINGS
               </div>
-              <div className="text-4xl font-bold text-gray-900 dark:text-white mb-1 group-hover:text-primary transition-colors">3.65%</div>
+              <div className="text-4xl font-bold text-gray-900 dark:text-white mb-1 group-hover:text-[#0ea5e9] transition-colors">3.65%</div>
               <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">APY*</div>
               <div className="text-lg font-semibold text-gray-700 dark:text-gray-300">18 MONTH CERTIFICATE</div>
               <div className="text-sm text-gray-500 dark:text-gray-400">Certificate Rates</div>
             </div>
 
             {/* Credit Cards */}
-            <div className="group bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-xl hover:border-primary/50 transition-all duration-300">
+            <div className="group bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-xl hover:border-sky-500/50 transition-all duration-300">
               <div className="inline-flex items-center px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 rounded-full text-xs font-medium mb-4">
                 CREDIT
               </div>
-              <div className="text-4xl font-bold text-gray-900 dark:text-white mb-1 group-hover:text-primary transition-colors">4.00%</div>
+              <div className="text-4xl font-bold text-gray-900 dark:text-white mb-1 group-hover:text-[#0ea5e9] transition-colors">4.00%</div>
               <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">APR*</div>
               <div className="text-lg font-semibold text-gray-700 dark:text-gray-300">CREDIT CARDS</div>
               <div className="text-sm text-gray-500 dark:text-gray-400">Credit Card Rates</div>
             </div>
 
             {/* Loans */}
-            <div className="group bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-xl hover:border-primary/50 transition-all duration-300">
+            <div className="group bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-xl hover:border-sky-500/50 transition-all duration-300">
               <div className="inline-flex items-center px-3 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 rounded-full text-xs font-medium mb-4">
                 MORTGAGE
               </div>
-              <div className="text-4xl font-bold text-gray-900 dark:text-white mb-1 group-hover:text-primary transition-colors">15.49%</div>
+              <div className="text-4xl font-bold text-gray-900 dark:text-white mb-1 group-hover:text-[#0ea5e9] transition-colors">15.49%</div>
               <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">APR*</div>
               <div className="text-lg font-semibold text-gray-700 dark:text-gray-300">LOANS</div>
               <div className="text-sm text-gray-500 dark:text-gray-400">Standard Loan Rates</div>
@@ -154,88 +154,88 @@ export default function Home() {
       </section>
 
       {/* Services Section */}
-      <section className="py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-primary-dark relative overflow-hidden">
+      <section className="py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 relative overflow-hidden">
         {/* Animated background elements */}
         <div className="absolute inset-0">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl"></div>
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl"></div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
-            <span className="text-primary font-semibold">Our Services</span>
+            <span className="text-[#0ea5e9] font-semibold">Our Services</span>
             <h2 className="text-3xl lg:text-4xl font-bold text-white mt-2">How Can We Help You Today?</h2>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Deposit Accounts */}
-            <Link href="/services" className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:bg-white/10 hover:border-primary/50 transition-all duration-300">
-              <div className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <i className="fas fa-piggy-bank text-primary text-2xl"></i>
+            <Link href="/services" className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:bg-white/10 hover:border-sky-500/50 transition-all duration-300">
+              <div className="w-16 h-16 bg-sky-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <i className="fas fa-piggy-bank text-[#0ea5e9] text-2xl"></i>
               </div>
               <h3 className="text-xl font-semibold text-white mb-3">Deposit Accounts</h3>
               <p className="text-gray-400">Secure your money with our high-yield savings and checking accounts designed for growth.</p>
-              <div className="mt-4 text-primary group-hover:translate-x-2 transition-transform inline-flex items-center">
+              <div className="mt-4 text-[#0ea5e9] group-hover:translate-x-2 transition-transform inline-flex items-center">
                 Learn more <i className="fas fa-arrow-right ml-2"></i>
               </div>
             </Link>
 
             {/* Credit Cards */}
-            <Link href="/services" className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:bg-white/10 hover:border-primary/50 transition-all duration-300">
-              <div className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <i className="fas fa-credit-card text-primary text-2xl"></i>
+            <Link href="/services" className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:bg-white/10 hover:border-sky-500/50 transition-all duration-300">
+              <div className="w-16 h-16 bg-sky-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <i className="fas fa-credit-card text-[#0ea5e9] text-2xl"></i>
               </div>
               <h3 className="text-xl font-semibold text-white mb-3">Credit Cards</h3>
               <p className="text-gray-400">Find the perfect credit card for your lifestyle with competitive rates and rewards.</p>
-              <div className="mt-4 text-primary group-hover:translate-x-2 transition-transform inline-flex items-center">
+              <div className="mt-4 text-[#0ea5e9] group-hover:translate-x-2 transition-transform inline-flex items-center">
                 Learn more <i className="fas fa-arrow-right ml-2"></i>
               </div>
             </Link>
 
             {/* Loans */}
-            <Link href="/services" className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:bg-white/10 hover:border-primary/50 transition-all duration-300">
-              <div className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <i className="fas fa-hand-holding-dollar text-primary text-2xl"></i>
+            <Link href="/services" className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:bg-white/10 hover:border-sky-500/50 transition-all duration-300">
+              <div className="w-16 h-16 bg-sky-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <i className="fas fa-hand-holding-dollar text-[#0ea5e9] text-2xl"></i>
               </div>
               <h3 className="text-xl font-semibold text-white mb-3">Loans</h3>
               <p className="text-gray-400">Get competitive rates on personal, auto, and home loans tailored to your goals.</p>
-              <div className="mt-4 text-primary group-hover:translate-x-2 transition-transform inline-flex items-center">
+              <div className="mt-4 text-[#0ea5e9] group-hover:translate-x-2 transition-transform inline-flex items-center">
                 Learn more <i className="fas fa-arrow-right ml-2"></i>
               </div>
             </Link>
 
             {/* Business Banking */}
-            <Link href="/services" className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:bg-white/10 hover:border-primary/50 transition-all duration-300">
-              <div className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <i className="fas fa-building text-primary text-2xl"></i>
+            <Link href="/services" className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:bg-white/10 hover:border-sky-500/50 transition-all duration-300">
+              <div className="w-16 h-16 bg-sky-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <i className="fas fa-building text-[#0ea5e9] text-2xl"></i>
               </div>
               <h3 className="text-xl font-semibold text-white mb-3">Business Banking</h3>
               <p className="text-gray-400">Comprehensive banking solutions designed to help your business thrive and grow.</p>
-              <div className="mt-4 text-primary group-hover:translate-x-2 transition-transform inline-flex items-center">
+              <div className="mt-4 text-[#0ea5e9] group-hover:translate-x-2 transition-transform inline-flex items-center">
                 Learn more <i className="fas fa-arrow-right ml-2"></i>
               </div>
             </Link>
 
             {/* Wealth & Retire */}
-            <Link href="/services" className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:bg-white/10 hover:border-primary/50 transition-all duration-300">
-              <div className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <i className="fas fa-chart-line text-primary text-2xl"></i>
+            <Link href="/services" className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:bg-white/10 hover:border-sky-500/50 transition-all duration-300">
+              <div className="w-16 h-16 bg-sky-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <i className="fas fa-chart-line text-[#0ea5e9] text-2xl"></i>
               </div>
               <h3 className="text-xl font-semibold text-white mb-3">Wealth & Retire</h3>
               <p className="text-gray-400">Plan for your future with our expert investment and retirement planning services.</p>
-              <div className="mt-4 text-primary group-hover:translate-x-2 transition-transform inline-flex items-center">
+              <div className="mt-4 text-[#0ea5e9] group-hover:translate-x-2 transition-transform inline-flex items-center">
                 Learn more <i className="fas fa-arrow-right ml-2"></i>
               </div>
             </Link>
 
             {/* About */}
-            <Link href="/about" className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:bg-white/10 hover:border-primary/50 transition-all duration-300">
-              <div className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <i className="fas fa-info-circle text-primary text-2xl"></i>
+            <Link href="/about" className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:bg-white/10 hover:border-sky-500/50 transition-all duration-300">
+              <div className="w-16 h-16 bg-sky-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <i className="fas fa-info-circle text-[#0ea5e9] text-2xl"></i>
               </div>
               <h3 className="text-xl font-semibold text-white mb-3">About Global Nexus</h3>
               <p className="text-gray-400">Learn about our commitment to exceptional banking services and community support.</p>
-              <div className="mt-4 text-primary group-hover:translate-x-2 transition-transform inline-flex items-center">
+              <div className="mt-4 text-[#0ea5e9] group-hover:translate-x-2 transition-transform inline-flex items-center">
                 Learn more <i className="fas fa-arrow-right ml-2"></i>
               </div>
             </Link>
@@ -244,7 +244,7 @@ export default function Home() {
       </section>
 
       {/* Promo Section */}
-      <section className="py-20 bg-gradient-to-br from-primary via-primary-dark to-gray-900 relative overflow-hidden">
+      <section className="py-20 bg-gradient-to-br from-[#0ea5e9] via-[#0284c7] to-gray-900 relative overflow-hidden">
         {/* Animated elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
@@ -265,39 +265,39 @@ export default function Home() {
               </p>
               <ul className="space-y-3">
                 <li className="flex items-center">
-                  <i className="fas fa-check text-primary mr-3"></i>
+                  <i className="fas fa-check text-white mr-3"></i>
                   No minimum balance required
                 </li>
                 <li className="flex items-center">
-                  <i className="fas fa-check text-primary mr-3"></i>
+                  <i className="fas fa-check text-white mr-3"></i>
                   Free online and mobile banking
                 </li>
                 <li className="flex items-center">
-                  <i className="fas fa-check text-primary mr-3"></i>
+                  <i className="fas fa-check text-white mr-3"></i>
                   24/7 customer support
                 </li>
               </ul>
-              <Link href="/register" className="group inline-flex items-center px-8 py-4 bg-white text-primary font-semibold rounded-xl hover:bg-gray-100 transition-all shadow-lg">
+              <Link href="/register" className="group inline-flex items-center px-8 py-4 bg-white text-[#0ea5e9] font-semibold rounded-xl hover:bg-gray-100 transition-all shadow-lg">
                 Open Account Now
                 <i className="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
               </Link>
             </div>
             <div className="hidden lg:block">
               <div className="relative">
-                <div className="absolute inset-0 bg-primary/20 rounded-3xl blur-xl"></div>
+                <div className="absolute inset-0 bg-sky-500/20 rounded-3xl blur-xl"></div>
                 <div className="relative bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20">
                   <div className="text-center text-white">
-                    <div className="text-7xl font-bold mb-2 bg-gradient-to-r from-white to-primary bg-clip-text text-transparent">$200</div>
+                    <div className="text-7xl font-bold mb-2 bg-gradient-to-r from-white to-sky-300 bg-clip-text text-transparent">$200</div>
                     <div className="text-2xl text-white/80">Welcome Bonus</div>
                     <div className="mt-4 text-sm text-white/60">*Terms and conditions apply</div>
                     <div className="mt-6 pt-6 border-t border-white/10">
                       <div className="grid grid-cols-2 gap-4 text-left">
                         <div>
-                          <i className="fas fa-shield-alt text-primary mb-2"></i>
+                          <i className="fas fa-shield-alt text-white mb-2"></i>
                           <p className="text-sm text-white/80">FDIC Insured</p>
                         </div>
                         <div>
-                          <i className="fas fa-lock text-primary mb-2"></i>
+                          <i className="fas fa-lock text-white mb-2"></i>
                           <p className="text-sm text-white/80">256-bit Encryption</p>
                         </div>
                       </div>
@@ -315,29 +315,29 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
-              <span className="text-primary font-semibold">Member-Focused Banking</span>
+              <span className="text-[#0ea5e9] font-semibold">Member-Focused Banking</span>
               <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mt-2 mb-6">Building Strength Together</h2>
               <p className="text-gray-600 dark:text-gray-400 text-lg mb-8">
                 Global Nexus Inc is a full-service credit union built on the foundation of providing exceptional service at every step of your financial journey. We&apos;re committed to helping our members achieve their goals.
               </p>
               <div className="grid sm:grid-cols-3 gap-6">
                 <div className="text-center p-6 bg-gray-50 dark:bg-gray-800 rounded-xl">
-                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-4">
-                    <i className="fas fa-chart-line text-primary text-xl"></i>
+                  <div className="w-12 h-12 bg-sky-500/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <i className="fas fa-chart-line text-[#0ea5e9] text-xl"></i>
                   </div>
                   <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Competitive Rates</h3>
                   <p className="text-sm text-gray-600 dark:text-gray-400">Better rates on savings, loans, credit cards</p>
                 </div>
                 <div className="text-center p-6 bg-gray-50 dark:bg-gray-800 rounded-xl">
-                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-4">
-                    <i className="fas fa-users text-primary text-xl"></i>
+                  <div className="w-12 h-12 bg-sky-500/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <i className="fas fa-users text-[#0ea5e9] text-xl"></i>
                   </div>
                   <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Member-Focused</h3>
                   <p className="text-sm text-gray-600 dark:text-gray-400">Owned by our members, not shareholders</p>
                 </div>
                 <div className="text-center p-6 bg-gray-50 dark:bg-gray-800 rounded-xl">
-                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-4">
-                    <i className="fas fa-heart text-primary text-xl"></i>
+                  <div className="w-12 h-12 bg-sky-500/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <i className="fas fa-heart text-[#0ea5e9] text-xl"></i>
                   </div>
                   <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Community</h3>
                   <p className="text-sm text-gray-600 dark:text-gray-400">Supporting local communities</p>
@@ -346,7 +346,7 @@ export default function Home() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-4">
-                <div className="bg-gradient-to-br from-primary to-primary-dark rounded-2xl h-48 relative overflow-hidden group">
+                <div className="bg-gradient-to-br from-[#0ea5e9] to-[#0284c7] rounded-2xl h-48 relative overflow-hidden group">
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
                   <div className="absolute bottom-4 left-4 text-white">
                     <i className="fas fa-landmark text-2xl"></i>
@@ -356,7 +356,7 @@ export default function Home() {
               </div>
               <div className="space-y-4 pt-8">
                 <div className="bg-gray-200 dark:bg-gray-700 rounded-2xl h-32"></div>
-                <div className="bg-gradient-to-br from-primary-dark to-primary rounded-2xl h-48 relative overflow-hidden group">
+                <div className="bg-gradient-to-br from-[#0284c7] to-[#0ea5e9] rounded-2xl h-48 relative overflow-hidden group">
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
                   <div className="absolute bottom-4 right-4 text-white">
                     <i className="fas fa-handshake text-2xl"></i>
@@ -372,7 +372,7 @@ export default function Home() {
       <section className="py-20 bg-gray-50 dark:bg-gray-800/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <span className="text-primary font-semibold">Testimonials</span>
+            <span className="text-[#0ea5e9] font-semibold">Testimonials</span>
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mt-2">Hear From Our Customers</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
@@ -385,8 +385,8 @@ export default function Home() {
               </div>
               <p className="text-gray-600 dark:text-gray-400 mb-6 italic">&quot;I am impressed with the customer service and speed of payout.&quot;</p>
               <div className="flex items-center">
-                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4">
-                  <span className="text-primary font-semibold">SM</span>
+                <div className="w-12 h-12 bg-sky-500/10 rounded-full flex items-center justify-center mr-4">
+                  <span className="text-[#0ea5e9] font-semibold">SM</span>
                 </div>
                 <div>
                   <div className="font-semibold text-gray-900 dark:text-white">Sarah Morris</div>
@@ -439,8 +439,8 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center p-6 bg-gray-50 dark:bg-gray-800 rounded-2xl">
-              <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-4">
-                <i className="fas fa-clock text-primary text-xl"></i>
+              <div className="w-14 h-14 bg-sky-500/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <i className="fas fa-clock text-[#0ea5e9] text-xl"></i>
               </div>
               <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Banking Hours</h3>
               <p className="text-gray-600 dark:text-gray-400">Mon-Fri: 9AM-5PM</p>
@@ -448,8 +448,8 @@ export default function Home() {
               <p className="text-gray-600 dark:text-gray-400">Sun: Closed</p>
             </div>
             <div className="text-center p-6 bg-gray-50 dark:bg-gray-800 rounded-2xl">
-              <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-4">
-                <i className="fas fa-phone text-primary text-xl"></i>
+              <div className="w-14 h-14 bg-sky-500/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <i className="fas fa-phone text-[#0ea5e9] text-xl"></i>
               </div>
               <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Phone Banking</h3>
               <p className="text-gray-600 dark:text-gray-400">Available 24/7</p>
@@ -457,16 +457,16 @@ export default function Home() {
               <p className="text-gray-600 dark:text-gray-400">+1-555-0123</p>
             </div>
             <div className="text-center p-6 bg-gray-50 dark:bg-gray-800 rounded-2xl">
-              <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-4">
-                <i className="fas fa-envelope text-primary text-xl"></i>
+              <div className="w-14 h-14 bg-sky-500/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <i className="fas fa-envelope text-[#0ea5e9] text-xl"></i>
               </div>
               <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Email Support</h3>
               <p className="text-gray-600 dark:text-gray-400">Response within 24hrs</p>
               <p className="text-gray-600 dark:text-gray-400 break-all">support@globalnexusincorp.com</p>
             </div>
             <div className="text-center p-6 bg-gray-50 dark:bg-gray-800 rounded-2xl">
-              <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-4">
-                <i className="fas fa-map-marker-alt text-primary text-xl"></i>
+              <div className="w-14 h-14 bg-sky-500/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <i className="fas fa-map-marker-alt text-[#0ea5e9] text-xl"></i>
               </div>
               <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Visit Us</h3>
               <p className="text-gray-600 dark:text-gray-400">123 Banking Street</p>

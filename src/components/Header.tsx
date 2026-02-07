@@ -38,10 +38,10 @@ export default function Header() {
       <nav className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         {/* Animated background pattern */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute w-full h-full bg-gradient-to-r from-primary/5 via-transparent to-primary/5"></div>
-          <div className="absolute top-0 left-1/4 w-1 h-1 bg-primary/20 rounded-full animate-pulse"></div>
-          <div className="absolute top-1/2 left-1/2 w-1 h-1 bg-primary/20 rounded-full animate-pulse delay-75"></div>
-          <div className="absolute top-1/3 right-1/4 w-1 h-1 bg-primary/20 rounded-full animate-pulse delay-150"></div>
+          <div className="absolute w-full h-full bg-gradient-to-r from-sky-500/5 via-transparent to-sky-500/5"></div>
+          <div className="absolute top-0 left-1/4 w-1 h-1 bg-sky-500/20 rounded-full animate-pulse"></div>
+          <div className="absolute top-1/2 left-1/2 w-1 h-1 bg-sky-500/20 rounded-full animate-pulse delay-75"></div>
+          <div className="absolute top-1/3 right-1/4 w-1 h-1 bg-sky-500/20 rounded-full animate-pulse delay-150"></div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -50,43 +50,43 @@ export default function Header() {
             <div className="flex items-center">
               <Link href="/" className="flex items-center space-x-3 group">
                 <div className="relative">
-                  <div className="absolute inset-0 bg-primary/20 rounded-xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
-                  <div className="relative w-12 h-12 bg-gradient-to-br from-primary to-primary-dark rounded-xl flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-primary/20">
+                  <div className="absolute inset-0 bg-[#0ea5e9]/20 rounded-xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+                  <div className="relative w-12 h-12 bg-[#0ea5e9] rounded-xl flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-sky-500/20">
                     <i className="fas fa-landmark text-white text-xl"></i>
                   </div>
                 </div>
                 <div>
-                  <span className="text-xl font-bold text-primary">Global Nexus</span>
+                  <span className="text-xl font-bold text-[#0ea5e9]">Global Nexus</span>
                 </div>
               </Link>
             </div>
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-1">
-              <Link href="/" className="relative px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors group">
+              <Link href="/" className="relative px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-[#0ea5e9] dark:hover:text-[#0ea5e9] transition-colors group">
                 <span className="relative z-10">Home</span>
-                <span className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 rounded-lg transition-colors"></span>
+                <span className="absolute inset-0 bg-transparent group-hover:bg-sky-500/5 rounded-lg transition-colors"></span>
               </Link>
-              <Link href="/about" className="relative px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors group">
+              <Link href="/about" className="relative px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-[#0ea5e9] dark:hover:text-[#0ea5e9] transition-colors group">
                 <span className="relative z-10">About</span>
-                <span className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 rounded-lg transition-colors"></span>
+                <span className="absolute inset-0 bg-transparent group-hover:bg-sky-500/5 rounded-lg transition-colors"></span>
               </Link>
               
               {/* Services Dropdown */}
               <div className="relative" onMouseEnter={() => setServicesOpen(true)} onMouseLeave={() => setServicesOpen(false)}>
-                <button className="relative px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors group flex items-center">
+                <button className="relative px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-[#0ea5e9] dark:hover:text-[#0ea5e9] transition-colors group flex items-center">
                   <span className="relative z-10">Services</span>
                   <i className={`fas fa-chevron-down ml-2 text-xs transition-transform duration-300 ${servicesOpen ? 'rotate-180' : ''}`}></i>
-                  <span className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 rounded-lg transition-colors"></span>
+                  <span className="absolute inset-0 bg-transparent group-hover:bg-sky-500/5 rounded-lg transition-colors"></span>
                 </button>
                 
                 {servicesOpen && (
                   <div className="absolute top-full left-0 w-64 pt-2">
                     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden">
-                      <Link href="/services" className="block px-4 py-3 hover:bg-primary/5 dark:hover:bg-primary/10 transition-colors">
+                      <Link href="/services" className="block px-4 py-3 hover:bg-sky-500/5 dark:hover:bg-sky-500/10 transition-colors">
                         <div className="flex items-center space-x-3">
-                          <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                            <i className="fas fa-piggy-bank text-primary"></i>
+                          <div className="w-10 h-10 rounded-lg bg-sky-500/10 flex items-center justify-center">
+                            <i className="fas fa-piggy-bank text-[#0ea5e9]"></i>
                           </div>
                           <div>
                             <span className="block text-gray-800 dark:text-white font-medium">Savings</span>
@@ -94,10 +94,10 @@ export default function Header() {
                           </div>
                         </div>
                       </Link>
-                      <Link href="/services" className="block px-4 py-3 hover:bg-primary/5 dark:hover:bg-primary/10 transition-colors">
+                      <Link href="/services" className="block px-4 py-3 hover:bg-sky-500/5 dark:hover:bg-sky-500/10 transition-colors">
                         <div className="flex items-center space-x-3">
-                          <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                            <i className="fas fa-credit-card text-primary"></i>
+                          <div className="w-10 h-10 rounded-lg bg-sky-500/10 flex items-center justify-center">
+                            <i className="fas fa-credit-card text-[#0ea5e9]"></i>
                           </div>
                           <div>
                             <span className="block text-gray-800 dark:text-white font-medium">Credit Cards</span>
@@ -105,10 +105,10 @@ export default function Header() {
                           </div>
                         </div>
                       </Link>
-                      <Link href="/services" className="block px-4 py-3 hover:bg-primary/5 dark:hover:bg-primary/10 transition-colors">
+                      <Link href="/services" className="block px-4 py-3 hover:bg-sky-500/5 dark:hover:bg-sky-500/10 transition-colors">
                         <div className="flex items-center space-x-3">
-                          <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                            <i className="fas fa-home text-primary"></i>
+                          <div className="w-10 h-10 rounded-lg bg-sky-500/10 flex items-center justify-center">
+                            <i className="fas fa-home text-[#0ea5e9]"></i>
                           </div>
                           <div>
                             <span className="block text-gray-800 dark:text-white font-medium">Mortgages</span>
@@ -116,10 +116,10 @@ export default function Header() {
                           </div>
                         </div>
                       </Link>
-                      <Link href="/services" className="block px-4 py-3 hover:bg-primary/5 dark:hover:bg-primary/10 transition-colors">
+                      <Link href="/services" className="block px-4 py-3 hover:bg-sky-500/5 dark:hover:bg-sky-500/10 transition-colors">
                         <div className="flex items-center space-x-3">
-                          <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                            <i className="fas fa-car text-primary"></i>
+                          <div className="w-10 h-10 rounded-lg bg-sky-500/10 flex items-center justify-center">
+                            <i className="fas fa-car text-[#0ea5e9]"></i>
                           </div>
                           <div>
                             <span className="block text-gray-800 dark:text-white font-medium">Auto Loans</span>
@@ -132,13 +132,13 @@ export default function Header() {
                 )}
               </div>
 
-              <Link href="/grants" className="relative px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors group">
+              <Link href="/grants" className="relative px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-[#0ea5e9] dark:hover:text-[#0ea5e9] transition-colors group">
                 <span className="relative z-10">Grants</span>
-                <span className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 rounded-lg transition-colors"></span>
+                <span className="absolute inset-0 bg-transparent group-hover:bg-sky-500/5 rounded-lg transition-colors"></span>
               </Link>
-              <Link href="/contact" className="relative px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors group">
+              <Link href="/contact" className="relative px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-[#0ea5e9] dark:hover:text-[#0ea5e9] transition-colors group">
                 <span className="relative z-10">Contact</span>
-                <span className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 rounded-lg transition-colors"></span>
+                <span className="absolute inset-0 bg-transparent group-hover:bg-sky-500/5 rounded-lg transition-colors"></span>
               </Link>
             </div>
 
@@ -155,15 +155,12 @@ export default function Header() {
 
               {/* Auth buttons - Desktop */}
               <div className="hidden lg:flex items-center space-x-3">
-                <Link href="/login" className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors font-medium">
+                <Link href="/login" className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-[#0ea5e9] transition-colors font-medium">
                   Login
                 </Link>
-                <Link href="/register" className="relative group">
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary-dark rounded-full blur opacity-75 group-hover:opacity-100 transition-opacity"></div>
-                  <span className="relative flex items-center px-6 py-2.5 bg-gradient-to-r from-primary to-primary-dark rounded-full text-white font-medium transition-transform group-hover:scale-105">
-                    <i className="fas fa-sparkles mr-2"></i>
-                    Open Account
-                  </span>
+                <Link href="/register" className="flex items-center px-6 py-2.5 bg-[#0ea5e9] hover:bg-[#0284c7] rounded-full text-white font-medium transition-all">
+                  <i className="fas fa-sparkles mr-2"></i>
+                  Open Account
                 </Link>
               </div>
 
@@ -182,41 +179,41 @@ export default function Header() {
           {isMenuOpen && (
             <div className="lg:hidden py-4 border-t border-gray-100 dark:border-gray-800">
               <div className="flex flex-col space-y-2">
-                <Link href="/" className="px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-primary/5 rounded-lg transition-colors">
+                <Link href="/" className="px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-sky-500/5 rounded-lg transition-colors">
                   Home
                 </Link>
-                <Link href="/about" className="px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-primary/5 rounded-lg transition-colors">
+                <Link href="/about" className="px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-sky-500/5 rounded-lg transition-colors">
                   About
                 </Link>
                 
                 {/* Mobile Services Submenu */}
                 <div>
-                  <button onClick={() => setMobileServicesOpen(!mobileServicesOpen)} className="w-full px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-primary/5 rounded-lg transition-colors flex items-center justify-between">
+                  <button onClick={() => setMobileServicesOpen(!mobileServicesOpen)} className="w-full px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-sky-500/5 rounded-lg transition-colors flex items-center justify-between">
                     <span>Services</span>
                     <i className={`fas fa-chevron-down text-xs transition-transform duration-300 ${mobileServicesOpen ? 'rotate-180' : ''}`}></i>
                   </button>
                   {mobileServicesOpen && (
                     <div className="pl-4 space-y-1 mt-1">
-                      <Link href="/services" className="block px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-primary transition-colors">
+                      <Link href="/services" className="block px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-[#0ea5e9] transition-colors">
                         <i className="fas fa-piggy-bank mr-2"></i> Savings
                       </Link>
-                      <Link href="/services" className="block px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-primary transition-colors">
+                      <Link href="/services" className="block px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-[#0ea5e9] transition-colors">
                         <i className="fas fa-credit-card mr-2"></i> Credit Cards
                       </Link>
-                      <Link href="/services" className="block px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-primary transition-colors">
+                      <Link href="/services" className="block px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-[#0ea5e9] transition-colors">
                         <i className="fas fa-home mr-2"></i> Mortgages
                       </Link>
-                      <Link href="/services" className="block px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-primary transition-colors">
+                      <Link href="/services" className="block px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-[#0ea5e9] transition-colors">
                         <i className="fas fa-car mr-2"></i> Auto Loans
                       </Link>
                     </div>
                   )}
                 </div>
 
-                <Link href="/grants" className="px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-primary/5 rounded-lg transition-colors">
+                <Link href="/grants" className="px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-sky-500/5 rounded-lg transition-colors">
                   Grants
                 </Link>
-                <Link href="/contact" className="px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-primary/5 rounded-lg transition-colors">
+                <Link href="/contact" className="px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-sky-500/5 rounded-lg transition-colors">
                   Contact
                 </Link>
               </div>
