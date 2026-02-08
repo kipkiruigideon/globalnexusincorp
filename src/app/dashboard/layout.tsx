@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
+import PageLoading from '@/components/PageLoading';
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -14,6 +15,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+  const [pageKey, setPageKey] = useState(0);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -23,6 +25,11 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       document.documentElement.classList.add('dark');
     }
   }, []);
+
+  // Trigger loading animation on route change
+  useEffect(() => {
+    setPageKey(prev => prev + 1);
+  }, [pathname]);
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
@@ -62,6 +69,9 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      {/* Page Loading Animation */}
+      <PageLoading key={pageKey} />
+      
       <div className="flex h-screen">
         {/* Desktop Sidebar */}
         <div className="hidden lg:flex w-72 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-r border-gray-200/50 dark:border-gray-700/50 flex-col shadow-xl">
