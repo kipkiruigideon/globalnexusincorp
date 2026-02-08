@@ -1,10 +1,55 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import PageLoading from '@/components/PageLoading';
+import Script from 'next/script';
+
+// Language codes mapping
+const LANGUAGE_MAP: { [key: string]: string } = {
+  'Select Language': '',
+  'Abkhaz': 'ab', 'Acehnese': 'ace', 'Acholi': 'ach', 'Afar': 'aa', 'Afrikaans': 'af',
+  'Albanian': 'sq', 'Alur': 'alz', 'Amharic': 'am', 'Arabic': 'ar', 'Armenian': 'hy',
+  'Assamese': 'as', 'Avar': 'av', 'Awadhi': 'awa', 'Aymara': 'ay', 'Azerbaijani': 'az',
+  'Balinese': 'ban', 'Baluchi': 'bal', 'Bambara': 'bm', 'Baoulé': 'bci', 'Basque': 'eu',
+  'Belarusian': 'be', 'Bengali': 'bn', 'Bhojpuri': 'bho', 'Bosnian': 'bs', 'Bulgarian': 'bg',
+  'Burmese': 'my', 'Catalan': 'ca', 'Cebuano': 'ceb', 'Chinese (Simplified)': 'zh-CN',
+  'Chinese (Traditional)': 'zh-TW', 'Croatian': 'hr', 'Czech': 'cs', 'Danish': 'da',
+  'Dutch': 'nl', 'English': 'en', 'Estonian': 'et', 'Finnish': 'fi', 'French': 'fr',
+  'German': 'de', 'Greek': 'el', 'Gujarati': 'gu', 'Haitian Creole': 'ht', 'Hausa': 'ha',
+  'Hebrew': 'iw', 'Hindi': 'hi', 'Hungarian': 'hu', 'Icelandic': 'is', 'Indonesian': 'id',
+  'Italian': 'it', 'Japanese': 'ja', 'Javanese': 'jw', 'Kannada': 'kn', 'Kazakh': 'kk',
+  'Khmer': 'km', 'Korean': 'ko', 'Kurdish': 'ku', 'Lao': 'lo', 'Latvian': 'lv',
+  'Lithuanian': 'lt', 'Malay': 'ms', 'Malayalam': 'ml', 'Marathi': 'mr', 'Mongolian': 'mn',
+  'Nepali': 'ne', 'Norwegian': 'no', 'Pashto': 'ps', 'Persian': 'fa', 'Polish': 'pl',
+  'Portuguese': 'pt', 'Punjabi': 'pa', 'Romanian': 'ro', 'Russian': 'ru', 'Serbian': 'sr',
+  'Sinhala': 'si', 'Slovak': 'sk', 'Slovenian': 'sl', 'Somali': 'so', 'Spanish': 'es',
+  'Sundanese': 'su', 'Swahili': 'sw', 'Swedish': 'sv', 'Tamil': 'ta', 'Telugu': 'te',
+  'Thai': 'th', 'Turkish': 'tr', 'Ukrainian': 'uk', 'Urdu': 'ur', 'Uzbek': 'uz',
+  'Vietnamese': 'vi', 'Welsh': 'cy', 'Yoruba': 'yo', 'Zulu': 'zu'
+};
+
+// Country to language mapping for auto-detection
+const COUNTRY_LANGUAGE_MAP: { [key: string]: string } = {
+  'US': 'en', 'GB': 'en', 'AU': 'en', 'CA': 'en', 'NZ': 'en', 'IE': 'en',
+  'ES': 'es', 'MX': 'es', 'AR': 'es', 'CO': 'es', 'PE': 'es', 'CL': 'es',
+  'FR': 'fr', 'BE': 'fr', 'CH': 'fr', 'DE': 'de', 'AT': 'de', 'IT': 'it',
+  'PT': 'pt', 'BR': 'pt', 'RU': 'ru', 'CN': 'zh-CN', 'TW': 'zh-TW', 'HK': 'zh-TW',
+  'JP': 'ja', 'KR': 'ko', 'IN': 'hi', 'PK': 'ur', 'BD': 'bn', 'ID': 'id',
+  'MY': 'ms', 'TH': 'th', 'VN': 'vi', 'PH': 'tl', 'SA': 'ar', 'AE': 'ar',
+  'EG': 'ar', 'TR': 'tr', 'IL': 'iw', 'PL': 'pl', 'NL': 'nl', 'SE': 'sv',
+  'NO': 'no', 'DK': 'da', 'FI': 'fi', 'GR': 'el', 'CZ': 'cs', 'HU': 'hu',
+  'RO': 'ro', 'UA': 'uk', 'KE': 'sw', 'NG': 'en', 'ZA': 'en', 'ET': 'am'
+};
+
+declare global {
+  interface Window {
+    google: any;
+    googleTranslateElementInit: () => void;
+  }
+}
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -16,7 +61,78 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const [pageKey, setPageKey] = useState(0);
+  const [selectedLanguage, setSelectedLanguage] = useState('Select Language');
+  const [translateReady, setTranslateReady] = useState(false);
   const pathname = usePathname();
+
+  // Function to change language via Google Translate
+  const changeLanguage = useCallback((langCode: string) => {
+    if (!langCode) return;
+    
+    // Set cookie for Google Translate
+    const domain = window.location.hostname;
+    document.cookie = `googtrans=/en/${langCode}; path=/; domain=${domain}`;
+    document.cookie = `googtrans=/en/${langCode}; path=/`;
+    
+    // Trigger translation
+    const select = document.querySelector('.goog-te-combo') as HTMLSelectElement;
+    if (select) {
+      select.value = langCode;
+      select.dispatchEvent(new Event('change'));
+    }
+  }, []);
+
+  // Auto-detect user location and set language
+  useEffect(() => {
+    const detectLocationAndSetLanguage = async () => {
+      try {
+        // Check if user already selected a language
+        const savedLang = localStorage.getItem('preferredLanguage');
+        if (savedLang) {
+          setSelectedLanguage(savedLang);
+          const langCode = LANGUAGE_MAP[savedLang];
+          if (langCode && translateReady) {
+            setTimeout(() => changeLanguage(langCode), 1000);
+          }
+          return;
+        }
+
+        // Detect location via IP
+        const response = await fetch('https://ipapi.co/json/');
+        const data = await response.json();
+        const countryCode = data.country_code;
+        
+        if (countryCode && COUNTRY_LANGUAGE_MAP[countryCode]) {
+          const langCode = COUNTRY_LANGUAGE_MAP[countryCode];
+          // Find language name from code
+          const langName = Object.entries(LANGUAGE_MAP).find(([, code]) => code === langCode)?.[0];
+          if (langName) {
+            setSelectedLanguage(langName);
+            localStorage.setItem('preferredLanguage', langName);
+            if (translateReady) {
+              setTimeout(() => changeLanguage(langCode), 1000);
+            }
+          }
+        }
+      } catch (error) {
+        console.log('Could not detect location:', error);
+      }
+    };
+
+    detectLocationAndSetLanguage();
+  }, [translateReady, changeLanguage]);
+
+  // Handle language selection
+  const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const langName = e.target.value;
+    setSelectedLanguage(langName);
+    localStorage.setItem('preferredLanguage', langName);
+    
+    const langCode = LANGUAGE_MAP[langName];
+    if (langCode) {
+      changeLanguage(langCode);
+    }
+  };
 
   useEffect(() => {
     const isDark = localStorage.getItem('darkMode') === 'true';
@@ -24,6 +140,22 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     if (isDark) {
       document.documentElement.classList.add('dark');
     }
+  }, []);
+
+  // Initialize Google Translate
+  useEffect(() => {
+    window.googleTranslateElementInit = () => {
+      new window.google.translate.TranslateElement(
+        {
+          pageLanguage: 'en',
+          includedLanguages: Object.values(LANGUAGE_MAP).filter(Boolean).join(','),
+          layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+          autoDisplay: false
+        },
+        'google_translate_element'
+      );
+      setTranslateReady(true);
+    };
   }, []);
 
   // Trigger loading animation on route change
@@ -89,103 +221,26 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           </div>
 
           {/* Language Selector */}
-          <div className="px-6 py-3 text-center text-xs text-gray-500 dark:text-gray-400">
-            <select className="bg-transparent border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5 text-sm w-full">
-              <option>Select Language</option>
-              <option>Abkhaz</option>
-              <option>Acehnese</option>
-              <option>Acholi</option>
-              <option>Afar</option>
-              <option>Afrikaans</option>
-              <option>Albanian</option>
-              <option>Alur</option>
-              <option>Amharic</option>
-              <option>Arabic</option>
-              <option>Armenian</option>
-              <option>Assamese</option>
-              <option>Avar</option>
-              <option>Awadhi</option>
-              <option>Aymara</option>
-              <option>Azerbaijani</option>
-              <option>Balinese</option>
-              <option>Baluchi</option>
-              <option>Bambara</option>
-              <option>Baoulé</option>
-              <option>Basque</option>
-              <option>Belarusian</option>
-              <option>Bengali</option>
-              <option>Bhojpuri</option>
-              <option>Bosnian</option>
-              <option>Bulgarian</option>
-              <option>Burmese</option>
-              <option>Catalan</option>
-              <option>Cebuano</option>
-              <option>Chinese (Simplified)</option>
-              <option>Chinese (Traditional)</option>
-              <option>Croatian</option>
-              <option>Czech</option>
-              <option>Danish</option>
-              <option>Dutch</option>
-              <option>English</option>
-              <option>Estonian</option>
-              <option>Finnish</option>
-              <option>French</option>
-              <option>German</option>
-              <option>Greek</option>
-              <option>Gujarati</option>
-              <option>Haitian Creole</option>
-              <option>Hausa</option>
-              <option>Hebrew</option>
-              <option>Hindi</option>
-              <option>Hungarian</option>
-              <option>Icelandic</option>
-              <option>Indonesian</option>
-              <option>Italian</option>
-              <option>Japanese</option>
-              <option>Javanese</option>
-              <option>Kannada</option>
-              <option>Kazakh</option>
-              <option>Khmer</option>
-              <option>Korean</option>
-              <option>Kurdish</option>
-              <option>Lao</option>
-              <option>Latvian</option>
-              <option>Lithuanian</option>
-              <option>Malay</option>
-              <option>Malayalam</option>
-              <option>Marathi</option>
-              <option>Mongolian</option>
-              <option>Nepali</option>
-              <option>Norwegian</option>
-              <option>Pashto</option>
-              <option>Persian</option>
-              <option>Polish</option>
-              <option>Portuguese</option>
-              <option>Punjabi</option>
-              <option>Romanian</option>
-              <option>Russian</option>
-              <option>Serbian</option>
-              <option>Sinhala</option>
-              <option>Slovak</option>
-              <option>Slovenian</option>
-              <option>Somali</option>
-              <option>Spanish</option>
-              <option>Sundanese</option>
-              <option>Swahili</option>
-              <option>Swedish</option>
-              <option>Tamil</option>
-              <option>Telugu</option>
-              <option>Thai</option>
-              <option>Turkish</option>
-              <option>Ukrainian</option>
-              <option>Urdu</option>
-              <option>Uzbek</option>
-              <option>Vietnamese</option>
-              <option>Welsh</option>
-              <option>Yoruba</option>
-              <option>Zulu</option>
+          <div className="px-6 py-3 text-xs text-gray-500 dark:text-gray-400">
+            <select 
+              value={selectedLanguage}
+              onChange={handleLanguageChange}
+              className="bg-[#1e293b] border border-gray-700 rounded-lg px-3 py-2 text-sm w-full text-white cursor-pointer hover:border-[#0ea5e9] transition-colors"
+            >
+              {Object.keys(LANGUAGE_MAP).map((lang) => (
+                <option key={lang} value={lang}>{lang}</option>
+              ))}
             </select>
+            <p className="text-center text-[10px] text-gray-500 mt-1">Powered by Google</p>
+            {/* Hidden Google Translate Element */}
+            <div id="google_translate_element" className="hidden"></div>
           </div>
+          
+          {/* Google Translate Script */}
+          <Script
+            src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+            strategy="afterInteractive"
+          />
 
           {/* Navigation */}
           <nav className="flex-1 px-4 py-6 space-y-6 overflow-y-auto custom-scrollbar">

@@ -154,3 +154,34 @@ html {
 .animate-delay-2000 {
   animation-delay: 2s;
 }
+
+/* Hide Google Translate banner */
+.goog-te-banner-frame,
+#goog-gt-tt,
+.goog-te-balloon-frame,
+.goog-tooltip,
+.goog-tooltip:hover {
+  display: none !important;
+}
+
+.goog-text-highlight {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
+.skiptranslate {
+  display: none !important;
+}
+
+/* Keep select elements working with Google Translate */
+.goog-te-gadget {
+  font-size: 0 !important;
+}
+
+.goog-te-combo {
+  display: none !important;
+}
