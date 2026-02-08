@@ -88,13 +88,102 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             </Link>
           </div>
 
-          {/* Language Selector Placeholder */}
+          {/* Language Selector */}
           <div className="px-6 py-3 text-center text-xs text-gray-500 dark:text-gray-400">
-            <select className="bg-transparent border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5 text-sm">
+            <select className="bg-transparent border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5 text-sm w-full">
               <option>Select Language</option>
+              <option>Abkhaz</option>
+              <option>Acehnese</option>
+              <option>Acholi</option>
+              <option>Afar</option>
+              <option>Afrikaans</option>
+              <option>Albanian</option>
+              <option>Alur</option>
+              <option>Amharic</option>
+              <option>Arabic</option>
+              <option>Armenian</option>
+              <option>Assamese</option>
+              <option>Avar</option>
+              <option>Awadhi</option>
+              <option>Aymara</option>
+              <option>Azerbaijani</option>
+              <option>Balinese</option>
+              <option>Baluchi</option>
+              <option>Bambara</option>
+              <option>Baoulé</option>
+              <option>Basque</option>
+              <option>Belarusian</option>
+              <option>Bengali</option>
+              <option>Bhojpuri</option>
+              <option>Bosnian</option>
+              <option>Bulgarian</option>
+              <option>Burmese</option>
+              <option>Catalan</option>
+              <option>Cebuano</option>
+              <option>Chinese (Simplified)</option>
+              <option>Chinese (Traditional)</option>
+              <option>Croatian</option>
+              <option>Czech</option>
+              <option>Danish</option>
+              <option>Dutch</option>
               <option>English</option>
-              <option>Spanish</option>
+              <option>Estonian</option>
+              <option>Finnish</option>
               <option>French</option>
+              <option>German</option>
+              <option>Greek</option>
+              <option>Gujarati</option>
+              <option>Haitian Creole</option>
+              <option>Hausa</option>
+              <option>Hebrew</option>
+              <option>Hindi</option>
+              <option>Hungarian</option>
+              <option>Icelandic</option>
+              <option>Indonesian</option>
+              <option>Italian</option>
+              <option>Japanese</option>
+              <option>Javanese</option>
+              <option>Kannada</option>
+              <option>Kazakh</option>
+              <option>Khmer</option>
+              <option>Korean</option>
+              <option>Kurdish</option>
+              <option>Lao</option>
+              <option>Latvian</option>
+              <option>Lithuanian</option>
+              <option>Malay</option>
+              <option>Malayalam</option>
+              <option>Marathi</option>
+              <option>Mongolian</option>
+              <option>Nepali</option>
+              <option>Norwegian</option>
+              <option>Pashto</option>
+              <option>Persian</option>
+              <option>Polish</option>
+              <option>Portuguese</option>
+              <option>Punjabi</option>
+              <option>Romanian</option>
+              <option>Russian</option>
+              <option>Serbian</option>
+              <option>Sinhala</option>
+              <option>Slovak</option>
+              <option>Slovenian</option>
+              <option>Somali</option>
+              <option>Spanish</option>
+              <option>Sundanese</option>
+              <option>Swahili</option>
+              <option>Swedish</option>
+              <option>Tamil</option>
+              <option>Telugu</option>
+              <option>Thai</option>
+              <option>Turkish</option>
+              <option>Ukrainian</option>
+              <option>Urdu</option>
+              <option>Uzbek</option>
+              <option>Vietnamese</option>
+              <option>Welsh</option>
+              <option>Yoruba</option>
+              <option>Zulu</option>
             </select>
           </div>
 
