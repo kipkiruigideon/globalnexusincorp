@@ -4,123 +4,92 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 export default function DepositsPage() {
-  const [depositMethod, setDepositMethod] = useState<'bank' | 'card' | 'crypto'>('bank');
-  const [amount, setAmount] = useState('');
+  const [selectedMethod, setSelectedMethod] = useState<string | null>(null);
 
-  const methods = [
-    { id: 'bank', icon: 'fa-building-columns', label: 'Bank Transfer', desc: 'Free • 1-3 days' },
-    { id: 'card', icon: 'fa-credit-card', label: 'Debit Card', desc: '2.5% fee • Instant' },
-    { id: 'crypto', icon: 'fa-bitcoin', label: 'Cryptocurrency', desc: 'Network fee • Fast' },
+  const depositMethods = [
+    { id: 'usdt', name: 'USDT', icon: 'fa-solid fa-square', color: 'bg-teal-500' },
+    { id: 'bank', name: 'Bank Transfer', icon: 'fa-solid fa-building-columns', color: 'bg-[#0ea5e9]' },
+    { id: 'bitcoin', name: 'Bitcoin', icon: 'fa-brands fa-bitcoin', color: 'bg-amber-500' },
   ];
 
   return (
     <div className="p-4 lg:p-6">
-      {/* Mobile Header */}
-      <div className="lg:hidden mb-6">
-        <div className="flex items-center space-x-3 mb-4">
-          <Link href="/dashboard" className="w-10 h-10 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
-            <i className="fa-solid fa-arrow-left text-gray-600 dark:text-gray-300"></i>
-          </Link>
-          <h1 className="text-xl font-bold text-gray-900 dark:text-white">Deposit Funds</h1>
+      {/* Page Header */}
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center space-x-4">
+          <div className="w-12 h-12 bg-[#0ea5e9] rounded-xl flex items-center justify-center">
+            <i className="fa-solid fa-piggy-bank text-white text-xl"></i>
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold text-white">Deposit Funds</h1>
+            <p className="text-gray-400 text-sm">Add money to your account securely</p>
+          </div>
+        </div>
+        <Link 
+          href="/dashboard"
+          className="px-4 py-2 bg-[#1e293b] border border-gray-700 text-white rounded-lg font-medium hover:bg-gray-700 transition-colors flex items-center space-x-2"
+        >
+          <i className="fa-solid fa-arrow-left"></i>
+          <span>Back to Dashboard</span>
+        </Link>
+      </div>
+
+      {/* Fund Your Account Banner */}
+      <div className="bg-gradient-to-r from-[#0ea5e9] to-[#0284c7] rounded-xl p-8 mb-6 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-32 h-32 bg-white/10 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+        <div className="absolute bottom-0 right-1/4 w-24 h-24 bg-white/10 rounded-full translate-y-1/2"></div>
+        
+        <div className="relative z-10 text-center">
+          <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <i className="fa-solid fa-piggy-bank text-white text-2xl"></i>
+          </div>
+          <h2 className="text-2xl font-bold text-white mb-2">Fund Your Account</h2>
+          <p className="text-white/80">Choose your preferred deposit method and amount</p>
         </div>
       </div>
 
-      {/* Desktop Header */}
-      <div className="hidden lg:block mb-8">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Deposit Funds</h1>
-        <p className="text-gray-500 dark:text-gray-400">Add money to your account securely</p>
-      </div>
-
-      <div className="max-w-xl mx-auto">
-        {/* Deposit Methods */}
-        <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 mb-6">
-          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Select Method</h3>
-          <div className="space-y-3">
-            {methods.map((method) => (
-              <button
-                key={method.id}
-                onClick={() => setDepositMethod(method.id as 'bank' | 'card' | 'crypto')}
-                className={`w-full flex items-center p-4 rounded-2xl border-2 transition-all ${
-                  depositMethod === method.id
-                    ? 'border-[#0ea5e9] bg-sky-50 dark:bg-sky-900/20'
-                    : 'border-gray-100 dark:border-gray-700 hover:border-gray-200 dark:hover:border-gray-600'
-                }`}
-              >
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mr-4 ${
-                  depositMethod === method.id ? 'bg-[#0ea5e9]' : 'bg-gray-100 dark:bg-gray-700'
-                }`}>
-                  <i className={`fa-solid ${method.icon} ${depositMethod === method.id ? 'text-white' : 'text-gray-500 dark:text-gray-400'}`}></i>
+      {/* Select Deposit Method */}
+      <div className="mb-6">
+        <h2 className="text-lg font-bold text-white mb-4">Select Deposit Method</h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {depositMethods.map((method) => (
+            <button
+              key={method.id}
+              onClick={() => setSelectedMethod(method.id)}
+              className={`bg-[#1e293b] rounded-xl p-4 flex items-center justify-between hover:bg-[#1e293b]/80 transition-colors ${
+                selectedMethod === method.id ? 'ring-2 ring-[#0ea5e9]' : ''
+              }`}
+            >
+              <div className="flex items-center space-x-3">
+                <div className={`w-10 h-10 ${method.color} rounded-lg flex items-center justify-center`}>
+                  <i className={`${method.icon} text-white`}></i>
                 </div>
-                <div className="flex-1 text-left">
-                  <p className={`font-semibold ${depositMethod === method.id ? 'text-[#0ea5e9]' : 'text-gray-900 dark:text-white'}`}>
-                    {method.label}
-                  </p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">{method.desc}</p>
-                </div>
-                {depositMethod === method.id && (
-                  <div className="w-6 h-6 bg-[#0ea5e9] rounded-full flex items-center justify-center">
-                    <i className="fa-solid fa-check text-white text-xs"></i>
-                  </div>
+                <span className="text-white font-semibold">{method.name}</span>
+              </div>
+              <div className={`w-5 h-5 rounded-full border-2 ${
+                selectedMethod === method.id 
+                  ? 'border-[#0ea5e9] bg-[#0ea5e9]' 
+                  : 'border-gray-600'
+              } flex items-center justify-center`}>
+                {selectedMethod === method.id && (
+                  <i className="fa-solid fa-check text-white text-xs"></i>
                 )}
-              </button>
-            ))}
-          </div>
+              </div>
+            </button>
+          ))}
         </div>
+      </div>
 
-        {/* Amount Input */}
-        <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 mb-6">
-          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Enter Amount</h3>
-          <div className="relative">
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-2xl font-semibold">$</span>
-            <input
-              type="number"
-              placeholder="0.00"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              className="w-full pl-12 pr-4 py-5 rounded-2xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white text-3xl font-bold placeholder-gray-400 focus:ring-2 focus:ring-[#0ea5e9] focus:border-transparent outline-none transition-all text-center"
-            />
-          </div>
-          
-          {/* Quick Amount Buttons */}
-          <div className="flex space-x-3 mt-4">
-            {['100', '500', '1000', '5000'].map((val) => (
-              <button
-                key={val}
-                onClick={() => setAmount(val)}
-                className="flex-1 py-3 rounded-xl bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-semibold hover:bg-sky-100 dark:hover:bg-sky-900/30 hover:text-[#0ea5e9] transition-colors"
-              >
-                ${val}
-              </button>
-            ))}
-          </div>
+      {/* Security Notice */}
+      <div className="bg-[#1e293b] rounded-xl p-4 flex items-start space-x-3">
+        <div className="w-8 h-8 bg-[#0ea5e9]/20 rounded-lg flex items-center justify-center flex-shrink-0">
+          <i className="fa-solid fa-shield-halved text-[#0ea5e9]"></i>
         </div>
-
-        {/* Bank Transfer Details (shown when bank method selected) */}
-        {depositMethod === 'bank' && (
-          <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 mb-6">
-            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Bank Details</h3>
-            <div className="space-y-4">
-              <div className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-900 rounded-xl">
-                <span className="text-gray-500 dark:text-gray-400 text-sm">Bank Name</span>
-                <span className="text-gray-900 dark:text-white font-semibold">Global Nexus Bank</span>
-              </div>
-              <div className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-900 rounded-xl">
-                <span className="text-gray-500 dark:text-gray-400 text-sm">Account Number</span>
-                <span className="text-gray-900 dark:text-white font-mono font-semibold">XXXX-XXXX-XXXX</span>
-              </div>
-              <div className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-900 rounded-xl">
-                <span className="text-gray-500 dark:text-gray-400 text-sm">Routing Number</span>
-                <span className="text-gray-900 dark:text-white font-mono font-semibold">XXXXXXX</span>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Continue Button */}
-        <button className="w-full py-4 bg-gradient-to-r from-[#0ea5e9] to-[#0284c7] text-white rounded-2xl font-bold text-lg shadow-lg shadow-sky-500/25 hover:shadow-xl transition-all">
-          <i className="fa-solid fa-plus mr-2"></i>
-          Deposit Funds
-        </button>
+        <div>
+          <h3 className="text-white font-semibold">Secure Deposit</h3>
+          <p className="text-gray-400 text-sm">All deposits are processed through secure payment channels. Your financial information is never stored on our servers.</p>
+        </div>
       </div>
     </div>
   );
