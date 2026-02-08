@@ -1,11 +1,26 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function SwapPage() {
   const [fromCurrency, setFromCurrency] = useState('USD');
-  const [toCurrency, setToCurrency] = useState('BTC');
   const [amount, setAmount] = useState('');
+  
+  const BTC_RATE = 70351.00;
+  
+  // Auto-set toCurrency based on fromCurrency
+  const toCurrency = fromCurrency === 'USD' ? 'BTC' : 'USD';
+  
+  // Calculate estimated conversion
+  const getEstimatedConversion = () => {
+    if (!amount || parseFloat(amount) === 0) return null;
+    const numAmount = parseFloat(amount);
+    if (fromCurrency === 'USD') {
+      return (numAmount / BTC_RATE).toFixed(8) + ' BTC';
+    } else {
+      return '$' + (numAmount * BTC_RATE).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+  };
 
   return (
     <div className="p-4 lg:p-6">
@@ -57,7 +72,7 @@ export default function SwapPage() {
               <div className="w-6 h-6 bg-amber-500 rounded-full flex items-center justify-center">
                 <i className="fa-brands fa-bitcoin text-white text-xs"></i>
               </div>
-              <span className="text-white font-semibold">1 BTC = $70,351.00 USD</span>
+              <span className="text-white font-semibold">1 BTC = ${BTC_RATE.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD</span>
             </div>
           </div>
         </div>
@@ -77,17 +92,12 @@ export default function SwapPage() {
             </select>
           </div>
 
-          {/* To Currency */}
+          {/* To Currency - Read only, auto-selected */}
           <div className="mb-4">
             <label className="block text-gray-400 text-sm mb-2">To Currency</label>
-            <select 
-              value={toCurrency}
-              onChange={(e) => setToCurrency(e.target.value)}
-              className="w-full bg-[#0f172a] border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#0ea5e9]"
-            >
-              <option value="BTC">BTC</option>
-              <option value="USD">USD</option>
-            </select>
+            <div className="w-full bg-[#0f172a] border border-gray-700 rounded-xl px-4 py-3 text-white">
+              {toCurrency}
+            </div>
             <p className="text-gray-500 text-xs mt-1">Destination currency is automatically selected</p>
           </div>
 
@@ -111,7 +121,11 @@ export default function SwapPage() {
           <div className="mb-6">
             <label className="block text-gray-400 text-sm mb-2">Estimated Conversion</label>
             <div className="bg-[#0f172a] border border-gray-700 rounded-xl px-4 py-3">
-              <span className="text-gray-500">Enter an amount to see conversion</span>
+              {getEstimatedConversion() ? (
+                <span className="text-white font-semibold">{getEstimatedConversion()}</span>
+              ) : (
+                <span className="text-gray-500">Enter an amount to see conversion</span>
+              )}
             </div>
           </div>
 
