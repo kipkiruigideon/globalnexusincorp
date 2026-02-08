@@ -285,7 +285,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                     </div>
                     <div className="hidden md:block text-left">
                       <p className="text-sm font-semibold text-gray-900 dark:text-white">Pascale</p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">user@example.com</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">gideonkipkirui47@gmail.com</p>
                     </div>
                     <i className="fa-solid fa-chevron-down text-gray-400 dark:text-gray-500 text-sm group-hover:text-[#0ea5e9] dark:group-hover:text-[#0ea5e9] transition-colors"></i>
                   </button>
@@ -293,15 +293,20 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                   {userDropdownOpen && (
                     <div className="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200/50 dark:border-gray-700/50 z-[99998]">
                       <div className="p-4 border-b border-gray-100 dark:border-gray-700">
-                        <div className="flex items-center space-x-3">
+                        <div className="flex items-center space-x-3 mb-3">
                           <div className="h-10 w-10 rounded-full bg-[#0ea5e9] flex items-center justify-center text-white font-semibold border-2 border-sky-100">
                             P
                           </div>
                           <div>
                             <p className="text-sm font-bold text-gray-900 dark:text-white">Pascale</p>
-                            <p className="text-xs text-gray-500 dark:text-gray-400">user@example.com</p>
+                            <p className="text-xs text-gray-500 dark:text-gray-400">gideonkipkirui47@gmail.com</p>
                           </div>
                         </div>
+                        {/* Verify KYC Button */}
+                        <button className="w-full py-2 px-4 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/50 rounded-xl text-amber-500 text-sm font-medium flex items-center justify-center space-x-2 transition-colors">
+                          <i className="fa-solid fa-triangle-exclamation"></i>
+                          <span>Verify KYC</span>
+                        </button>
                       </div>
                       <div className="p-2">
                         <Link href="/dashboard/settings" className="flex items-center space-x-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
