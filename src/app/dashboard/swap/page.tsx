@@ -1,111 +1,124 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 
 export default function SwapPage() {
   const [fromCurrency, setFromCurrency] = useState('USD');
-  const [toCurrency, setToCurrency] = useState('EUR');
+  const [toCurrency, setToCurrency] = useState('BTC');
   const [amount, setAmount] = useState('');
 
   return (
     <div className="p-4 lg:p-6">
-      {/* Mobile Header */}
-      <div className="lg:hidden mb-6">
-        <div className="flex items-center space-x-3 mb-4">
-          <Link href="/dashboard" className="w-10 h-10 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
-            <i className="fa-solid fa-arrow-left text-gray-600 dark:text-gray-300"></i>
-          </Link>
-          <h1 className="text-xl font-bold text-gray-900 dark:text-white">Currency Swap</h1>
+      {/* Page Header */}
+      <div className="flex items-center space-x-4 mb-6">
+        <div className="w-12 h-12 bg-[#0ea5e9] rounded-xl flex items-center justify-center">
+          <i className="fa-solid fa-arrows-rotate text-white text-xl"></i>
+        </div>
+        <div>
+          <h1 className="text-2xl font-bold text-white">Currency Swap</h1>
+          <p className="text-gray-400 text-sm">Convert between USD and Bitcoin</p>
         </div>
       </div>
 
-      {/* Desktop Header */}
-      <div className="hidden lg:block mb-8">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Currency Swap</h1>
-        <p className="text-gray-500 dark:text-gray-400">Exchange currencies at competitive rates</p>
-      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Left Column - Balances */}
+        <div className="space-y-6">
+          {/* Current Balances */}
+          <div className="bg-[#1e293b] rounded-xl p-6">
+            <h2 className="text-lg font-bold text-white mb-4">Current Balances</h2>
+            
+            <div className="space-y-4">
+              <div className="flex items-center justify-between p-3 bg-[#0f172a] rounded-xl">
+                <div className="flex items-center space-x-3">
+                  <div className="w-8 h-8 bg-[#0ea5e9] rounded-lg flex items-center justify-center">
+                    <i className="fa-solid fa-dollar-sign text-white text-sm"></i>
+                  </div>
+                  <span className="text-gray-300">USD Balance</span>
+                </div>
+                <span className="text-white font-semibold">$0.00</span>
+              </div>
+              
+              <div className="flex items-center justify-between p-3 bg-[#0f172a] rounded-xl">
+                <div className="flex items-center space-x-3">
+                  <div className="w-8 h-8 bg-amber-500 rounded-lg flex items-center justify-center">
+                    <i className="fa-brands fa-bitcoin text-white text-sm"></i>
+                  </div>
+                  <span className="text-gray-300">Bitcoin Balance</span>
+                </div>
+                <span className="text-white font-semibold">0.00000000 BTC</span>
+              </div>
+            </div>
+          </div>
 
-      <div className="max-w-xl mx-auto">
-        {/* Swap Card */}
-        <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 mb-6">
+          {/* Exchange Rate Card */}
+          <div className="bg-[#1e293b] rounded-xl p-6">
+            <p className="text-gray-400 text-sm text-center mb-2">Current Exchange Rate</p>
+            <div className="flex items-center justify-center space-x-2">
+              <div className="w-6 h-6 bg-amber-500 rounded-full flex items-center justify-center">
+                <i className="fa-brands fa-bitcoin text-white text-xs"></i>
+              </div>
+              <span className="text-white font-semibold">1 BTC = $70,351.00 USD</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column - Swap Form */}
+        <div className="bg-[#1e293b] rounded-xl p-6">
           {/* From Currency */}
           <div className="mb-4">
-            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">From</label>
-            <div className="flex space-x-3">
+            <label className="block text-gray-400 text-sm mb-2">From Currency</label>
+            <select 
+              value={fromCurrency}
+              onChange={(e) => setFromCurrency(e.target.value)}
+              className="w-full bg-[#0f172a] border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#0ea5e9]"
+            >
+              <option value="USD">USD ($0.00)</option>
+              <option value="BTC">BTC (0.00000000)</option>
+            </select>
+          </div>
+
+          {/* To Currency */}
+          <div className="mb-4">
+            <label className="block text-gray-400 text-sm mb-2">To Currency</label>
+            <select 
+              value={toCurrency}
+              onChange={(e) => setToCurrency(e.target.value)}
+              className="w-full bg-[#0f172a] border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#0ea5e9]"
+            >
+              <option value="BTC">BTC</option>
+              <option value="USD">USD</option>
+            </select>
+            <p className="text-gray-500 text-xs mt-1">Destination currency is automatically selected</p>
+          </div>
+
+          {/* Amount */}
+          <div className="mb-4">
+            <label className="block text-gray-400 text-sm mb-2">Amount</label>
+            <div className="relative">
               <input
                 type="number"
                 placeholder="0.00"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
-                className="flex-1 px-4 py-4 rounded-2xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white text-xl font-semibold placeholder-gray-400 focus:ring-2 focus:ring-[#0ea5e9] focus:border-transparent outline-none transition-all"
+                className="w-full bg-[#0f172a] border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#0ea5e9] pr-16"
               />
-              <select 
-                value={fromCurrency}
-                onChange={(e) => setFromCurrency(e.target.value)}
-                className="px-4 py-4 rounded-2xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white font-semibold focus:ring-2 focus:ring-[#0ea5e9] focus:border-transparent outline-none transition-all min-w-[100px]"
-              >
-                <option value="USD">USD</option>
-                <option value="EUR">EUR</option>
-                <option value="GBP">GBP</option>
-                <option value="BTC">BTC</option>
-              </select>
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 font-medium">{fromCurrency}</span>
             </div>
+            <p className="text-gray-500 text-xs mt-1">Enter the amount you want to swap</p>
           </div>
 
-          {/* Swap Button */}
-          <div className="flex justify-center my-4">
-            <button 
-              onClick={() => {
-                const temp = fromCurrency;
-                setFromCurrency(toCurrency);
-                setToCurrency(temp);
-              }}
-              className="w-12 h-12 bg-[#0ea5e9] rounded-full flex items-center justify-center shadow-lg shadow-sky-500/25 hover:shadow-xl transition-all hover:scale-105"
-            >
-              <i className="fa-solid fa-arrows-rotate text-white"></i>
-            </button>
-          </div>
-
-          {/* To Currency */}
+          {/* Estimated Conversion */}
           <div className="mb-6">
-            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">To</label>
-            <div className="flex space-x-3">
-              <input
-                type="number"
-                placeholder="0.00"
-                disabled
-                className="flex-1 px-4 py-4 rounded-2xl border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white text-xl font-semibold placeholder-gray-400 outline-none"
-              />
-              <select 
-                value={toCurrency}
-                onChange={(e) => setToCurrency(e.target.value)}
-                className="px-4 py-4 rounded-2xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white font-semibold focus:ring-2 focus:ring-[#0ea5e9] focus:border-transparent outline-none transition-all min-w-[100px]"
-              >
-                <option value="EUR">EUR</option>
-                <option value="USD">USD</option>
-                <option value="GBP">GBP</option>
-                <option value="BTC">BTC</option>
-              </select>
-            </div>
-          </div>
-
-          {/* Rate Info */}
-          <div className="p-4 bg-gray-50 dark:bg-gray-900 rounded-2xl mb-6">
-            <div className="flex items-center justify-between text-sm mb-2">
-              <span className="text-gray-500 dark:text-gray-400">Exchange Rate</span>
-              <span className="font-semibold text-gray-900 dark:text-white">1 {fromCurrency} = 0.92 {toCurrency}</span>
-            </div>
-            <div className="flex items-center justify-between text-sm">
-              <span className="text-gray-500 dark:text-gray-400">Fee</span>
-              <span className="font-semibold text-green-500">Free</span>
+            <label className="block text-gray-400 text-sm mb-2">Estimated Conversion</label>
+            <div className="bg-[#0f172a] border border-gray-700 rounded-xl px-4 py-3">
+              <span className="text-gray-500">Enter an amount to see conversion</span>
             </div>
           </div>
 
           {/* Swap Button */}
-          <button className="w-full py-4 bg-gradient-to-r from-[#0ea5e9] to-[#0284c7] text-white rounded-2xl font-bold text-lg shadow-lg shadow-sky-500/25 hover:shadow-xl transition-all">
-            <i className="fa-solid fa-arrows-rotate mr-2"></i>
-            Swap Currency
+          <button className="w-full py-3 bg-[#0ea5e9] text-white rounded-xl font-semibold hover:bg-[#0284c7] transition-colors flex items-center justify-center space-x-2">
+            <i className="fa-solid fa-arrows-rotate"></i>
+            <span>Swap Currencies</span>
           </button>
         </div>
       </div>
