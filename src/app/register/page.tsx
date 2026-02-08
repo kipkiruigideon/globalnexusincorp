@@ -4,10 +4,14 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { useAuth } from '@/context/AuthContext';
 
 export default function RegisterPage() {
   const router = useRouter();
+  const { register } = useAuth();
   const [step, setStep] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
   const [formData, setFormData] = useState({
     // Step 1: Personal Info
     firstName: '',
@@ -38,16 +42,66 @@ export default function RegisterPage() {
   ];
 
   const handleNext = () => {
+    setError('');
     if (step < 4) setStep(step + 1);
   };
 
   const handlePrev = () => {
+    setError('');
     if (step > 1) setStep(step - 1);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    router.push('/dashboard');
+    setError('');
+    
+    // Validate passwords match
+    if (formData.password !== formData.confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+    
+    // Validate password strength
+    if (formData.password.length < 6) {
+      setError('Password must be at least 6 characters');
+      return;
+    }
+    
+    // Validate terms agreement
+    if (!formData.agreeTerms) {
+      setError('Please agree to the Terms of Service');
+      return;
+    }
+    
+    setIsLoading(true);
+    
+    try {
+      const result = await register({
+        email: formData.email,
+        password: formData.password,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        dateOfBirth: formData.dateOfBirth,
+        phone: formData.phone,
+        address: formData.address,
+        city: formData.city,
+        state: formData.state,
+        zipCode: formData.zipCode,
+        accountType: formData.accountType,
+        employmentStatus: formData.employmentStatus,
+        annualIncome: formData.annualIncome,
+      });
+      
+      if (result.success) {
+        router.push('/dashboard');
+      } else {
+        setError(result.message);
+      }
+    } catch {
+      setError('An error occurred. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -318,38 +372,59 @@ export default function RegisterPage() {
             )}
 
             {/* Navigation Buttons */}
-            <div className="flex justify-between mt-8">
-              {step > 1 ? (
-                <button
-                  type="button"
-                  onClick={handlePrev}
-                  className="px-6 py-3 border border-gray-300 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-colors"
-                >
-                  <i className="fa-solid fa-arrow-left mr-2"></i>
-                  Back
-                </button>
-              ) : (
-                <div></div>
+            <div className="mt-8">
+              {/* Error Message */}
+              {error && (
+                <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm">
+                  <i className="fa-solid fa-circle-exclamation mr-2"></i>
+                  {error}
+                </div>
               )}
               
-              {step < 4 ? (
-                <button
-                  type="button"
-                  onClick={handleNext}
-                  className="px-8 py-3 bg-gradient-to-r from-[#0ea5e9] to-[#0284c7] text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-sky-500/25 transition-all"
-                >
-                  Continue
-                  <i className="fa-solid fa-arrow-right ml-2"></i>
-                </button>
-              ) : (
-                <button
-                  type="submit"
-                  className="px-8 py-3 bg-gradient-to-r from-[#0ea5e9] to-[#0284c7] text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-sky-500/25 transition-all"
-                >
-                  Create Account
-                  <i className="fa-solid fa-check ml-2"></i>
-                </button>
-              )}
+              <div className="flex justify-between">
+                {step > 1 ? (
+                  <button
+                    type="button"
+                    onClick={handlePrev}
+                    disabled={isLoading}
+                    className="px-6 py-3 border border-gray-300 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-colors disabled:opacity-50"
+                  >
+                    <i className="fa-solid fa-arrow-left mr-2"></i>
+                    Back
+                  </button>
+                ) : (
+                  <div></div>
+                )}
+                
+                {step < 4 ? (
+                  <button
+                    type="button"
+                    onClick={handleNext}
+                    className="px-8 py-3 bg-gradient-to-r from-[#0ea5e9] to-[#0284c7] text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-sky-500/25 transition-all"
+                  >
+                    Continue
+                    <i className="fa-solid fa-arrow-right ml-2"></i>
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    disabled={isLoading}
+                    className="px-8 py-3 bg-gradient-to-r from-[#0ea5e9] to-[#0284c7] text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-sky-500/25 transition-all disabled:opacity-50 flex items-center"
+                  >
+                    {isLoading ? (
+                      <>
+                        <i className="fa-solid fa-spinner fa-spin mr-2"></i>
+                        Creating Account...
+                      </>
+                    ) : (
+                      <>
+                        Create Account
+                        <i className="fa-solid fa-check ml-2"></i>
+                      </>
+                    )}
+                  </button>
+                )}
+              </div>
             </div>
           </form>
 

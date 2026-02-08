@@ -2,10 +2,11 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import PageLoading from '@/components/PageLoading';
 import Script from 'next/script';
+import { useAuth } from '@/context/AuthContext';
 
 // Language codes mapping
 const LANGUAGE_MAP: { [key: string]: string } = {
@@ -56,6 +57,8 @@ interface DashboardLayoutProps {
 }
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
+  const { user, isLoading: authLoading, logout } = useAuth();
+  const router = useRouter();
   const [darkMode, setDarkMode] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [notificationOpen, setNotificationOpen] = useState(false);
@@ -64,6 +67,19 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const [selectedLanguage, setSelectedLanguage] = useState('Select Language');
   const [translateReady, setTranslateReady] = useState(false);
   const pathname = usePathname();
+
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (!authLoading && !user) {
+      router.push('/login');
+    }
+  }, [user, authLoading, router]);
+
+  // Handle logout
+  const handleLogout = () => {
+    logout();
+    router.push('/login');
+  };
 
   // Function to change language via Google Translate
   const changeLanguage = useCallback((langCode: string) => {
@@ -198,6 +214,23 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     { href: '/dashboard/settings', icon: 'fa-gear', label: 'Settings' },
     { href: '/dashboard/support', icon: 'fa-headset', label: 'Support' },
   ];
+
+  // Show loading while checking auth
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-[#0ea5e9] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-400">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Don't render if not authenticated (redirect will happen via useEffect)
+  if (!user) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -353,15 +386,15 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             <div className="flex items-center space-x-4 p-4 rounded-2xl bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 border border-gray-200/50 dark:border-gray-700/50">
               <div className="relative">
                 <div className="h-10 w-10 rounded-full bg-[#0ea5e9] flex items-center justify-center text-white font-semibold">
-                  P
+                  {user?.firstName?.charAt(0) || 'U'}
                 </div>
                 <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white dark:border-gray-600"></div>
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-bold text-gray-900 dark:text-white truncate">Pascale</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400 truncate">user@example.com</p>
+                <p className="text-sm font-bold text-gray-900 dark:text-white truncate">{user?.firstName || 'User'}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{user?.email || 'user@example.com'}</p>
               </div>
-              <button className="w-8 h-8 rounded-xl bg-red-50 dark:bg-red-900/30 hover:bg-red-100 dark:hover:bg-red-900/50 text-red-500 dark:text-red-400 hover:text-red-600 dark:hover:text-red-300 transition-colors flex items-center justify-center">
+              <button onClick={handleLogout} className="w-8 h-8 rounded-xl bg-red-50 dark:bg-red-900/30 hover:bg-red-100 dark:hover:bg-red-900/50 text-red-500 dark:text-red-400 hover:text-red-600 dark:hover:text-red-300 transition-colors flex items-center justify-center">
                 <i className="fa-solid fa-right-from-bracket text-sm"></i>
               </button>
             </div>
@@ -376,7 +409,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               {/* Page Title */}
               <div>
                 <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Dashboard</h1>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Welcome back, Pascale</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Welcome back, {user?.firstName || 'User'}</p>
               </div>
 
               {/* Header Actions */}
@@ -425,11 +458,11 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                     className="flex items-center space-x-3 p-2 rounded-2xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group"
                   >
                     <div className="h-10 w-10 rounded-full bg-[#0ea5e9] flex items-center justify-center text-white font-semibold border-2 border-sky-100">
-                      P
+                      {user?.firstName?.charAt(0) || 'U'}
                     </div>
                     <div className="hidden md:block text-left">
-                      <p className="text-sm font-semibold text-gray-900 dark:text-white">Pascale</p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">gideonkipkirui47@gmail.com</p>
+                      <p className="text-sm font-semibold text-gray-900 dark:text-white">{user?.firstName || 'User'}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">{user?.email || 'user@example.com'}</p>
                     </div>
                     <i className="fa-solid fa-chevron-down text-gray-400 dark:text-gray-500 text-sm group-hover:text-[#0ea5e9] dark:group-hover:text-[#0ea5e9] transition-colors"></i>
                   </button>
@@ -439,11 +472,11 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                       <div className="p-4 border-b border-gray-100 dark:border-gray-700">
                         <div className="flex items-center space-x-3 mb-3">
                           <div className="h-10 w-10 rounded-full bg-[#0ea5e9] flex items-center justify-center text-white font-semibold border-2 border-sky-100">
-                            P
+                            {user?.firstName?.charAt(0) || 'U'}
                           </div>
                           <div>
-                            <p className="text-sm font-bold text-gray-900 dark:text-white">Pascale</p>
-                            <p className="text-xs text-gray-500 dark:text-gray-400">gideonkipkirui47@gmail.com</p>
+                            <p className="text-sm font-bold text-gray-900 dark:text-white">{user?.firstName || 'User'}</p>
+                            <p className="text-xs text-gray-500 dark:text-gray-400">{user?.email || 'user@example.com'}</p>
                           </div>
                         </div>
                         {/* Verify KYC Button */}
@@ -466,12 +499,12 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                           <span className="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white">Help & Support</span>
                         </Link>
                         <div className="border-t border-gray-100 dark:border-gray-700 my-2"></div>
-                        <Link href="/login" className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors group">
+                        <button onClick={handleLogout} className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors group">
                           <div className="w-8 h-8 bg-red-100 dark:bg-red-900/30 rounded-xl flex items-center justify-center group-hover:bg-red-200 dark:group-hover:bg-red-900/50 transition-colors">
                             <i className="fa-solid fa-right-from-bracket text-red-500 dark:text-red-400 text-sm"></i>
                           </div>
                           <span className="text-sm font-medium text-red-600 dark:text-red-400">Sign Out</span>
-                        </Link>
+                        </button>
                       </div>
                     </div>
                   )}
