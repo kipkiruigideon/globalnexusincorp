@@ -31,7 +31,8 @@ export default function DarkModeToggle() {
     <div className="fixed top-4 right-4 z-50">
       <button
         onClick={toggleDarkMode}
-        className="dark-mode-toggle p-3 rounded-2xl bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 shadow-lg hover:shadow-xl border border-gray-200 dark:border-gray-700 backdrop-blur-xl transition-all duration-300 hover:scale-110"
+        className="dark-mode-toggle p-3 rounded-2xl text-[#D1D5DB] shadow-lg hover:shadow-xl backdrop-blur-xl transition-all duration-300 hover:scale-110"
+        style={{ backgroundColor: '#1F2937CC', borderColor: 'rgb(55 65 81 / 0.5)', borderWidth: '1px', borderStyle: 'solid' }}
         title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
       >
         {darkMode ? (
