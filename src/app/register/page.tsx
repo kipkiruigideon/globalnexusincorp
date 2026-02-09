@@ -1,31 +1,34 @@
 import React from 'react';
+import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 
-const RegisterPage = () => {
-  return (
-    <div>
-      {/* Existing content */}
-      <div className="hidden lg:flex lg:w-[45%] flex-col justify-center items-center p-12 bg-gradient-to-br from-[#0ea5e9] via-[#0284c7] to-[#0369a1] relative overflow-hidden">
-        {/* Floating circles styling changes */}
-        <div className="bg-white/10">...</div>
-        <div className="bg-white/10">...</div>
-        <div className="bg-white/8">...</div>
-      </div>
-      <div className="flex-1 flex flex-col p-4 lg:px-8 lg:pt-6 lg:pb-4 overflow-y-auto">
+const Register = () => {
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const onSubmit = data => console.log(data);
+
+    return (
         <div className="w-full max-w-md mx-auto bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 shadow-xl">
-          <div className="flex justify-end mb-4">
-            <button 
-              type="button"
-              className="p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors dark-mode-toggle"
-              title="Toggle Dark Mode"
-            >
-              <i className="fa-solid fa-moon"></i>
-            </button>
-          </div>
-          {/* Create Account Header */}
+            <h1 className="text-2xl mb-4">Register</h1>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <div>
+                    <label>Email:</label>
+                    <input type="email" {...register('email', { required: true })} />
+                    {errors.email && <span>This field is required</span>}
+                </div>
+                <div>
+                    <label>Password:</label>
+                    <input type="password" {...register('password', { required: true })} />
+                    {errors.password && <span>This field is required</span>}
+                </div>
+                <button type="submit">Register</button>
+            </form>
+            <div className="flex justify-end mb-4">
+                <button type="button" className="p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors dark-mode-toggle" title="Toggle Dark Mode">
+                    <i className="fa-solid fa-moon"></i>
+                </button>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
-export default RegisterPage;
+export default Register;
