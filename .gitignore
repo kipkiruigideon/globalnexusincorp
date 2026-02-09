@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# Cloned website source files (reference only)
+globalnexusincorp.com-source/
+globalnexusincorp.com (1)-source/

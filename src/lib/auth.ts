@@ -6,12 +6,14 @@ export interface User {
   email: string;
   firstName: string;
   lastName: string;
-  dateOfBirth: string;
+  middleName?: string;
+  username?: string;
   phone: string;
   address: string;
   city: string;
   state: string;
   zipCode: string;
+  country?: string;
   accountType: string;
   employmentStatus: string;
   annualIncome: string;
@@ -69,12 +71,14 @@ export function registerUser(data: {
   password: string;
   firstName: string;
   lastName: string;
-  dateOfBirth: string;
+  middleName?: string;
+  username?: string;
   phone: string;
   address: string;
   city: string;
   state: string;
   zipCode: string;
+  country?: string;
   accountType: string;
   employmentStatus: string;
   annualIncome: string;
@@ -85,6 +89,11 @@ export function registerUser(data: {
   if (users.some(u => u.email.toLowerCase() === data.email.toLowerCase())) {
     return { success: false, message: 'An account with this email already exists' };
   }
+
+  // Check if username already exists (if provided)
+  if (data.username && users.some(u => u.userData.username?.toLowerCase() === data.username?.toLowerCase())) {
+    return { success: false, message: 'This username is already taken' };
+  }
   
   // Create user object
   const user: User = {
@@ -92,12 +101,14 @@ export function registerUser(data: {
     email: data.email,
     firstName: data.firstName,
     lastName: data.lastName,
-    dateOfBirth: data.dateOfBirth,
+    middleName: data.middleName,
+    username: data.username,
     phone: data.phone,
     address: data.address,
     city: data.city,
     state: data.state,
     zipCode: data.zipCode,
+    country: data.country,
     accountType: data.accountType,
     employmentStatus: data.employmentStatus,
     annualIncome: data.annualIncome,
