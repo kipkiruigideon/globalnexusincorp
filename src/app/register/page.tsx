@@ -118,9 +118,16 @@ export default function RegisterPage() {
   return (
     <div className="min-h-screen bg-[#0f172a] flex">
       {/* Left Panel - Branding */}
-      <div className="hidden lg:flex lg:w-[45%] flex-col justify-center items-center p-12 bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#0f172a]">
+      <div className="hidden lg:flex lg:w-[45%] flex-col justify-center items-center p-12 bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#0f172a] relative overflow-hidden">
+        {/* Animated floating circles */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-[10%] left-[10%] w-72 h-72 bg-[#0ea5e9]/5 rounded-full blur-xl animate-float-slow"></div>
+          <div className="absolute bottom-[15%] right-[5%] w-96 h-96 bg-[#0ea5e9]/5 rounded-full blur-xl animate-float-medium"></div>
+          <div className="absolute top-[50%] left-[50%] w-64 h-64 bg-[#0ea5e9]/3 rounded-full blur-xl animate-float-fast"></div>
+          <div className="absolute bottom-[40%] left-[15%] w-48 h-48 bg-white/3 rounded-full blur-lg animate-float-reverse"></div>
+        </div>
         {/* Logo */}
-        <div className="mb-8 bg-white/10 backdrop-blur-sm rounded-2xl p-6">
+        <div className="mb-8 bg-white/10 backdrop-blur-sm rounded-2xl p-6 relative z-10 hover:scale-105 transition-transform duration-300">
           <div className="flex items-center gap-3">
             <Image 
               src="/images/photos/lwjkWDHt3aKtY1uBWVMpmJ3FxeVfe3AqrYZy2G4k.png" 
@@ -133,22 +140,22 @@ export default function RegisterPage() {
         </div>
 
         {/* Heading */}
-        <h1 className="text-3xl font-bold text-white text-center mb-2">
+        <h1 className="text-3xl font-bold text-white text-center mb-2 relative z-10">
           Join Global Nexus Inc
         </h1>
-        <h2 className="text-lg text-white/80 font-medium text-center mb-4">
+        <h2 className="text-lg text-white/80 font-medium text-center mb-4 relative z-10">
           Create Your Banking Account
         </h2>
-        <p className="text-gray-400 text-center max-w-md mb-10">
+        <p className="text-gray-400 text-center max-w-md mb-10 relative z-10">
           Start your financial journey with Global Nexus Inc. Secure, fast, and reliable banking at your fingertips.
         </p>
 
         {/* Feature Cards */}
-        <div className="grid grid-cols-2 gap-4 w-full max-w-md">
+        <div className="grid grid-cols-2 gap-4 w-full max-w-md relative z-10">
           {features.map((feature, index) => (
             <div 
               key={index}
-              className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 flex items-center gap-3 hover:bg-white/10 transition-colors"
+              className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 flex items-center gap-3 hover:bg-white/10 hover:scale-105 hover:border-[#0ea5e9]/30 transition-all duration-300 cursor-default"
             >
               <div className="w-10 h-10 rounded-lg bg-[#0ea5e9]/20 flex items-center justify-center text-[#0ea5e9]">
                 <i className={`fa-solid ${feature.icon}`}></i>
@@ -590,7 +597,7 @@ export default function RegisterPage() {
                     type="button"
                     onClick={handlePrev}
                     disabled={isLoading}
-                    className="px-5 py-2.5 text-gray-400 hover:text-white font-medium transition-colors disabled:opacity-50 flex items-center"
+                    className="px-5 py-2.5 text-gray-400 hover:text-white font-medium transition-all duration-200 disabled:opacity-50 flex items-center hover:-translate-x-1"
                   >
                     <i className="fa-solid fa-arrow-left mr-2"></i>
                     Back
@@ -603,7 +610,7 @@ export default function RegisterPage() {
                   <button
                     type="button"
                     onClick={handleNext}
-                    className="px-6 py-2.5 bg-[#0ea5e9] text-white font-medium rounded-lg hover:bg-[#0284c7] transition-colors flex items-center"
+                    className="px-6 py-2.5 bg-[#0ea5e9] text-white font-medium rounded-lg hover:bg-[#0284c7] hover:shadow-lg hover:shadow-[#0ea5e9]/25 hover:scale-105 transition-all duration-200 flex items-center"
                   >
                     Next
                     <i className="fa-solid fa-chevron-right ml-2"></i>
@@ -612,7 +619,7 @@ export default function RegisterPage() {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="px-6 py-2.5 bg-[#0ea5e9] text-white font-medium rounded-lg hover:bg-[#0284c7] transition-colors disabled:opacity-50 flex items-center"
+                    className="px-6 py-2.5 bg-[#0ea5e9] text-white font-medium rounded-lg hover:bg-[#0284c7] hover:shadow-lg hover:shadow-[#0ea5e9]/25 hover:scale-105 transition-all duration-200 disabled:opacity-50 flex items-center"
                   >
                     {isLoading ? (
                       <>

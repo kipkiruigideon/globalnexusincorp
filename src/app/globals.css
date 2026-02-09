@@ -185,3 +185,33 @@ body {
 .goog-te-combo {
   display: none !important;
 }
+
+/* Floating circle animations for register page */
+@keyframes float-slow {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(30px, -40px) scale(1.05); }
+  50% { transform: translate(-20px, -80px) scale(0.95); }
+  75% { transform: translate(40px, -30px) scale(1.02); }
+}
+@keyframes float-medium {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  30% { transform: translate(-40px, 30px) scale(1.08); }
+  60% { transform: translate(20px, 50px) scale(0.92); }
+}
+@keyframes float-fast {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  20% { transform: translate(50px, -20px) scale(1.1); }
+  40% { transform: translate(-30px, 40px) scale(0.9); }
+  60% { transform: translate(20px, 60px) scale(1.05); }
+  80% { transform: translate(-40px, -10px) scale(0.95); }
+}
+@keyframes float-reverse {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-50px, -30px) scale(1.1); }
+  66% { transform: translate(30px, 20px) scale(0.9); }
+}
+
+.animate-float-slow { animation: float-slow 12s ease-in-out infinite; }
+.animate-float-medium { animation: float-medium 10s ease-in-out infinite; }
+.animate-float-fast { animation: float-fast 8s ease-in-out infinite; }
+.animate-float-reverse { animation: float-reverse 14s ease-in-out infinite; }
