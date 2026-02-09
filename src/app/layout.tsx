@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileFixedButtons from "@/components/MobileFixedButtons";
 import { Providers } from "@/components/Providers";
+import { LayoutWrapper } from "@/components/LayoutWrapper";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -46,13 +47,22 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} font-sans antialiased bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100`}>
         <Providers>
-          <MobileFixedButtons position="top" />
-          <Header />
-          <main>
+          <LayoutWrapper
+            header={
+              <>
+                <MobileFixedButtons position="top" />
+                <Header />
+              </>
+            }
+            footer={
+              <>
+                <Footer />
+                <MobileFixedButtons position="bottom" />
+              </>
+            }
+          >
             {children}
-          </main>
-          <Footer />
-          <MobileFixedButtons position="bottom" />
+          </LayoutWrapper>
         </Providers>
       </body>
     </html>

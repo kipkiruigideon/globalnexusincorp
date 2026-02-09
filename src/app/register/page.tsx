@@ -136,7 +136,7 @@ export default function RegisterPage() {
         <h1 className="text-3xl font-bold text-white text-center mb-2">
           Join Global Nexus Inc
         </h1>
-        <h2 className="text-xl text-[#0ea5e9] font-medium text-center mb-4">
+        <h2 className="text-lg text-white/80 font-medium text-center mb-4">
           Create Your Banking Account
         </h2>
         <p className="text-gray-400 text-center max-w-md mb-10">
