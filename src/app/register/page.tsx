@@ -174,7 +174,7 @@ export default function RegisterPage() {
       </div>
 
       {/* Right Panel - Form */}
-      <div className="flex-1 flex flex-col p-6 lg:px-10 lg:pt-8 lg:pb-6 overflow-y-auto">
+      <div className="flex-1 flex flex-col p-6 pt-16 lg:px-10 lg:pt-8 lg:pb-6 overflow-y-auto">
         <div className="w-full max-w-md mx-auto">
           {/* Header */}
           <div className="flex justify-between items-center mb-4">
