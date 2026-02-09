@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { useAuth } from '@/context/AuthContext';
+import DarkModeToggle from '@/components/DarkModeToggle';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -47,6 +48,9 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-[#0f172a] flex">
+      {/* Dark Mode Toggle - Floating button */}
+      <DarkModeToggle />
+
       {/* Left Panel - Branding */}
       <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-[#0f172a] via-[#1e3a5f] to-[#0c4a6e] flex-col items-center justify-center p-12 relative overflow-hidden">
         {/* Background Pattern */}
