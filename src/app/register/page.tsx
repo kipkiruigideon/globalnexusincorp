@@ -163,54 +163,52 @@ export default function RegisterPage() {
       </div>
 
       {/* Right Panel - Form */}
-      <div className="flex-1 flex items-center justify-center p-6 lg:p-12">
-        <div className="w-full max-w-lg">
-          {/* Form Card */}
-          <div className="bg-[#1e293b] rounded-2xl p-8 shadow-2xl border border-white/5">
-            {/* Header */}
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-bold text-white">Create Account</h2>
-              <span className="text-sm text-gray-400">Step {step} of 4</span>
-            </div>
+      <div className="flex-1 flex flex-col p-6 lg:px-10 lg:pt-8 lg:pb-6 overflow-y-auto">
+        <div className="w-full max-w-md mx-auto">
+          {/* Header */}
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-lg font-bold text-white">Create Account</h2>
+            <span className="text-xs text-gray-400">Step {step} of 4</span>
+          </div>
 
-            {/* Progress Bar */}
-            <div className="h-1 bg-gray-700 rounded-full mb-6 overflow-hidden">
-              <div 
-                className="h-full bg-[#0ea5e9] transition-all duration-300"
-                style={{ width: `${(step / 4) * 100}%` }}
-              ></div>
-            </div>
+          {/* Progress Bar */}
+          <div className="h-1 bg-gray-700 rounded-full mb-5 overflow-hidden">
+            <div 
+              className="h-full bg-[#0ea5e9] transition-all duration-300"
+              style={{ width: `${(step / 4) * 100}%` }}
+            ></div>
+          </div>
 
-            {/* Step Icons */}
-            <div className="flex justify-between mb-8">
-              {steps.map((s) => (
-                <div key={s.number} className="flex flex-col items-center">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
-                    step >= s.number 
-                      ? 'bg-[#0ea5e9] text-white' 
-                      : 'bg-gray-700 text-gray-400'
-                  }`}>
-                    <i className={`fa-solid ${s.icon} text-sm`}></i>
-                  </div>
-                  <span className={`mt-2 text-xs font-medium ${
-                    step >= s.number ? 'text-[#0ea5e9]' : 'text-gray-500'
-                  }`}>
-                    {s.title}
-                  </span>
+          {/* Step Icons */}
+          <div className="flex justify-between mb-6 px-2">
+            {steps.map((s) => (
+              <div key={s.number} className="flex flex-col items-center">
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
+                  step >= s.number 
+                    ? 'bg-[#0ea5e9] text-white' 
+                    : 'bg-gray-700 text-gray-400'
+                }`}>
+                  <i className={`fa-solid ${s.icon} text-xs`}></i>
                 </div>
-              ))}
-            </div>
-
-            {/* Step Icon Display */}
-            <div className="flex justify-center mb-4">
-              <div className="w-16 h-16 rounded-full bg-[#0ea5e9] flex items-center justify-center">
-                <i className={`fa-solid ${steps[step - 1].icon} text-2xl text-white`}></i>
+                <span className={`mt-1.5 text-[10px] font-medium ${
+                  step >= s.number ? 'text-[#0ea5e9]' : 'text-gray-500'
+                }`}>
+                  {s.title}
+                </span>
               </div>
-            </div>
+            ))}
+          </div>
 
-            {/* Step Title */}
-            <div className="text-center mb-6">
-              <h3 className="text-lg font-semibold text-white">
+          {/* Step Icon Display */}
+          <div className="flex justify-center mb-3">
+            <div className="w-12 h-12 rounded-full bg-[#0ea5e9] flex items-center justify-center">
+              <i className={`fa-solid ${steps[step - 1].icon} text-lg text-white`}></i>
+            </div>
+          </div>
+
+          {/* Step Title */}
+          <div className="text-center mb-5">
+            <h3 className="text-base font-semibold text-white">
                 {step === 1 && 'Personal Information'}
                 {step === 2 && 'Contact Information'}
                 {step === 3 && 'Account Details'}
@@ -633,13 +631,17 @@ export default function RegisterPage() {
             </form>
 
             {/* Sign In Link */}
-            <p className="mt-6 text-center text-sm text-gray-400">
+            <p className="mt-5 text-center text-sm text-gray-400">
               Already have an account?{' '}
               <Link href="/login" className="text-[#0ea5e9] hover:text-[#38bdf8] font-medium">
                 Sign In
               </Link>
             </p>
-          </div>
+
+          {/* Copyright */}
+          <p className="mt-6 text-center text-xs text-gray-500">
+            &copy; {new Date().getFullYear()} Global Nexus Inc. All Rights Reserved.
+          </p>
         </div>
       </div>
     </div>
