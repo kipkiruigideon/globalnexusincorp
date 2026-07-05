@@ -125,13 +125,9 @@ export default function RegisterPage() {
       <div className="hidden lg:flex lg:w-[45%] flex-col justify-center items-center p-12 bg-gradient-to-br from-[#0f172a] via-[#1e3a5f] to-[#0c4a6e] relative overflow-hidden">
         {/* Animated floating circles */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          {/* Large defined circles centered behind the branding */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[540px] h-[540px] bg-[#0ea5e9]/[0.06] border border-white/10 rounded-full animate-float-slow"></div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[380px] h-[380px] bg-white/[0.05] border border-white/10 rounded-full animate-float-medium"></div>
-          {/* Soft accent glows */}
-          <div className="absolute top-[8%] left-[6%] w-72 h-72 bg-[#0ea5e9]/20 rounded-full blur-3xl animate-float-fast"></div>
-          <div className="absolute bottom-[10%] right-[4%] w-96 h-96 bg-[#38bdf8]/20 rounded-full blur-3xl animate-float-reverse"></div>
-          <div className="absolute bottom-[35%] left-[12%] w-56 h-56 bg-white/10 rounded-full blur-3xl animate-float-slow"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[560px] h-[560px] bg-[#0ea5e9]/[0.05] border border-white/10 rounded-full animate-float-slow"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] h-[420px] bg-[#0ea5e9]/[0.06] border border-white/10 rounded-full animate-float-medium"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] bg-white/[0.06] border border-white/10 rounded-full animate-float-fast"></div>
         </div>
         {/* Logo */}
         <div className="mb-8 bg-white/10 backdrop-blur-sm rounded-2xl p-6 relative z-10 hover:scale-105 transition-transform duration-300">
@@ -617,17 +613,24 @@ export default function RegisterPage() {
                   <button
                     type="button"
                     onClick={handleNext}
-                    className="px-8 py-3 bg-[#0ea5e9] text-white font-semibold rounded-xl hover:bg-[#0284c7] hover:shadow-lg hover:shadow-[#0ea5e9]/25 hover:scale-105 transition-all duration-200 flex items-center"
+                    className="group relative px-8 py-3 bg-[#0284c7] text-white font-semibold rounded-xl overflow-hidden transition-all duration-300 shadow-lg shadow-[#0ea5e9]/25 hover:shadow-xl hover:shadow-[#0ea5e9]/40 hover:-translate-y-0.5 flex items-center"
                   >
-                    Next
-                    <i className="fa-solid fa-chevron-right ml-2"></i>
+                    <span className="absolute inset-0 bg-[#0ea5e9] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-out"></span>
+                    <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
+                    <span className="relative z-10 flex items-center">
+                      Next
+                      <i className="fa-solid fa-chevron-right ml-2 group-hover:translate-x-1 transition-transform duration-300"></i>
+                    </span>
                   </button>
                 ) : (
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="px-8 py-3 bg-[#0ea5e9] text-white font-semibold rounded-xl hover:bg-[#0284c7] hover:shadow-lg hover:shadow-[#0ea5e9]/25 hover:scale-105 transition-all duration-200 disabled:opacity-50 flex items-center"
+                    className="group relative px-8 py-3 bg-[#0284c7] text-white font-semibold rounded-xl overflow-hidden transition-all duration-300 shadow-lg shadow-[#0ea5e9]/25 hover:shadow-xl hover:shadow-[#0ea5e9]/40 hover:-translate-y-0.5 disabled:opacity-50 flex items-center"
                   >
+                    <span className="absolute inset-0 bg-[#0ea5e9] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-out"></span>
+                    <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
+                    <span className="relative z-10 flex items-center">
                     {isLoading ? (
                       <>
                         <i className="fa-solid fa-spinner fa-spin mr-2"></i>
@@ -639,6 +642,7 @@ export default function RegisterPage() {
                         <i className="fa-solid fa-check ml-2"></i>
                       </>
                     )}
+                    </span>
                   </button>
                 )}
               </div>
