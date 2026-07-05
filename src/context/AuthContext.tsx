@@ -11,6 +11,8 @@ interface AuthContextType {
   logout: () => Promise<void>;
   updateUser: (data: Partial<User>) => void;
   refreshUser: () => Promise<void>;
+  verifyEmail: (code: string) => Promise<{ success: boolean; message: string }>;
+  resendCode: () => Promise<{ success: boolean; message: string }>;
 }
 
 interface RegisterData {
@@ -111,8 +113,35 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
   };
 
+  const verifyEmail = async (code: string) => {
+    try {
+      const res = await fetch('/api/auth/verify-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code }),
+      });
+      const data = await res.json();
+      if (data.success && data.user) {
+        setUser(data.user);
+      }
+      return { success: !!data.success, message: data.message ?? '' };
+    } catch {
+      return { success: false, message: 'An error occurred. Please try again.' };
+    }
+  };
+
+  const resendCode = async () => {
+    try {
+      const res = await fetch('/api/auth/resend-code', { method: 'POST' });
+      const data = await res.json();
+      return { success: !!data.success, message: data.message ?? '' };
+    } catch {
+      return { success: false, message: 'An error occurred. Please try again.' };
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, isLoading, login, register, logout, updateUser, refreshUser }}>
+    <AuthContext.Provider value={{ user, isLoading, login, register, logout, updateUser, refreshUser, verifyEmail, resendCode }}>
       {children}
     </AuthContext.Provider>
   );

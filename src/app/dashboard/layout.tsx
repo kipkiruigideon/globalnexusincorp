@@ -72,6 +72,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   useEffect(() => {
     if (!authLoading && !user) {
       router.push('/login');
+    } else if (!authLoading && user && !user.emailVerified) {
+      router.push('/verify-email');
     }
   }, [user, authLoading, router]);
 
@@ -228,7 +230,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   }
 
   // Don't render if not authenticated (redirect will happen via useEffect)
-  if (!user) {
+  if (!user || !user.emailVerified) {
     return null;
   }
 

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { prisma } from '@/lib/prisma';
 import { createSession, sanitizeUser } from '@/lib/session';
+import { generateVerificationCode, sendVerificationEmail } from '@/lib/email';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -78,6 +79,8 @@ export async function POST(req: NextRequest) {
     const transactionPinHash = transactionPin
       ? await bcrypt.hash(String(transactionPin), 10)
       : null;
+    const verificationCode = generateVerificationCode();
+    const verificationExpiresAt = new Date(Date.now() + 60 * 60 * 1000);
 
     const user = await prisma.user.create({
       data: {
@@ -97,9 +100,17 @@ export async function POST(req: NextRequest) {
         currency: currency ? String(currency) : 'USD',
         transactionPinHash,
         profilePicture: profilePicture ? String(profilePicture) : null,
+        verificationCode,
+        verificationExpiresAt,
         accountNumber: generateAccountNumber(),
       },
     });
+
+    try {
+      await sendVerificationEmail(user.email, verificationCode, user.firstName);
+    } catch (emailError) {
+      console.error('Verification email failed to send:', emailError);
+    }
 
     await createSession(user.id);
 

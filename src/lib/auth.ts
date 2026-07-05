@@ -17,6 +17,7 @@ export interface User {
   accountType: string;
   currency: string;
   profilePicture?: string | null;
+  emailVerified: boolean;
   balance: number;
   accountNumber: string;
   createdAt: string;

@@ -153,7 +153,7 @@ export default function RegisterPage() {
       });
       
       if (result.success) {
-        router.push('/dashboard');
+        router.push('/verify-email');
       } else {
         setError(result.message);
       }

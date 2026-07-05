@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 import { ReactNode } from 'react';
 
 // Pages where header/footer should be hidden
-const AUTH_ROUTES = ['/register', '/login'];
+const AUTH_ROUTES = ['/register', '/login', '/verify-email'];
 
 export function LayoutWrapper({
   children,
