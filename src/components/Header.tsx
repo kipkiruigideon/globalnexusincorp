@@ -1,16 +1,15 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
-  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
-    // Initialize dark mode from localStorage or system preference
     const savedMode = localStorage.getItem('darkMode');
     if (savedMode !== null) {
       setDarkMode(savedMode === 'true');
@@ -20,7 +19,6 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    // Apply dark mode class to document
     if (darkMode) {
       document.documentElement.classList.add('dark');
     } else {
@@ -29,197 +27,211 @@ export default function Header() {
     localStorage.setItem('darkMode', String(darkMode));
   }, [darkMode]);
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
+  const toggleDarkMode = () => setDarkMode(!darkMode);
 
   return (
     <header className="fixed w-full top-0 z-50">
-      <nav className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
-        {/* Animated background pattern */}
+      <nav className="relative bg-gradient-to-r from-white via-primary-50 to-white dark:from-gray-900 dark:via-primary-900 dark:to-gray-900 backdrop-blur-xl border-b border-primary-200/50 dark:border-primary-700/30 shadow-lg shadow-primary-500/5">
+        {/* Animated Background Pattern */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute w-full h-full bg-gradient-to-r from-sky-500/5 via-transparent to-sky-500/5"></div>
-          <div className="absolute top-0 left-1/4 w-1 h-1 bg-sky-500/20 rounded-full animate-pulse"></div>
-          <div className="absolute top-1/2 left-1/2 w-1 h-1 bg-sky-500/20 rounded-full animate-pulse delay-75"></div>
-          <div className="absolute top-1/3 right-1/4 w-1 h-1 bg-sky-500/20 rounded-full animate-pulse delay-150"></div>
+          <div className="absolute -top-10 -left-10 w-20 h-20 bg-primary-200/20 dark:bg-primary-800/20 rounded-full blur-xl animate-pulse"></div>
+          <div className="absolute -top-5 right-1/4 w-16 h-16 bg-teal-200/20 dark:bg-teal-800/20 rounded-full blur-lg animate-pulse" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute -bottom-10 -right-10 w-24 h-24 bg-purple-200/20 dark:bg-purple-800/20 rounded-full blur-xl animate-pulse" style={{ animationDelay: '2s' }}></div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="flex justify-between h-20">
-            {/* Logo */}
-            <div className="flex items-center">
-              <Link href="/" className="flex items-center space-x-3 group">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-[#0ea5e9]/20 rounded-xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
-                  <div className="relative w-12 h-12 bg-[#0ea5e9] rounded-xl flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-sky-500/20">
-                    <i className="fas fa-landmark text-white text-xl"></i>
-                  </div>
-                </div>
-                <div>
-                  <span className="text-xl font-bold text-[#0ea5e9]">Global Nexus</span>
-                </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-20">
+            {/* Logo with glow effect */}
+            <div className="flex items-center group">
+              <Link href="/" className="relative">
+                <div className="absolute inset-0 bg-primary-400/20 rounded-xl blur-lg group-hover:bg-primary-400/30 transition-all duration-300"></div>
+                <Image
+                  src="/images/photos/lwjkWDHt3aKtY1uBWVMpmJ3FxeVfe3AqrYZy2G4k.png"
+                  alt="Global Nexus Inc"
+                  width={160}
+                  height={40}
+                  className="relative h-10 w-auto"
+                />
               </Link>
             </div>
 
-            {/* Desktop Navigation */}
+            {/* Desktop Navigation with modern styling */}
             <div className="hidden lg:flex items-center space-x-1">
-              <Link href="/" className="relative px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-[#0ea5e9] dark:hover:text-[#0ea5e9] transition-colors group">
+              <Link href="/" className="relative px-4 py-2 text-gray-700 dark:text-gray-300 font-medium transition-all duration-300 hover:text-primary-600 dark:hover:text-primary-400 group">
                 <span className="relative z-10">Home</span>
-                <span className="absolute inset-0 bg-transparent group-hover:bg-sky-500/5 rounded-lg transition-colors"></span>
+                <div className="absolute inset-0 bg-primary-50 dark:bg-primary-900/30 rounded-xl scale-0 group-hover:scale-100 transition-transform duration-300 origin-center"></div>
               </Link>
-              <Link href="/about" className="relative px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-[#0ea5e9] dark:hover:text-[#0ea5e9] transition-colors group">
+              <Link href="/about" className="relative px-4 py-2 text-gray-700 dark:text-gray-300 font-medium transition-all duration-300 hover:text-primary-600 dark:hover:text-primary-400 group">
                 <span className="relative z-10">About</span>
-                <span className="absolute inset-0 bg-transparent group-hover:bg-sky-500/5 rounded-lg transition-colors"></span>
+                <div className="absolute inset-0 bg-primary-50 dark:bg-primary-900/30 rounded-xl scale-0 group-hover:scale-100 transition-transform duration-300 origin-center"></div>
               </Link>
-              
+
               {/* Services Dropdown */}
-              <div className="relative" onMouseEnter={() => setServicesOpen(true)} onMouseLeave={() => setServicesOpen(false)}>
-                <button className="relative px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-[#0ea5e9] dark:hover:text-[#0ea5e9] transition-colors group flex items-center">
+              <div className="relative group" onMouseEnter={() => setServicesOpen(true)} onMouseLeave={() => setServicesOpen(false)}>
+                <button className="relative px-4 py-2 text-gray-700 dark:text-gray-300 font-medium transition-all duration-300 hover:text-primary-600 dark:hover:text-primary-400 flex items-center">
                   <span className="relative z-10">Services</span>
-                  <i className={`fas fa-chevron-down ml-2 text-xs transition-transform duration-300 ${servicesOpen ? 'rotate-180' : ''}`}></i>
-                  <span className="absolute inset-0 bg-transparent group-hover:bg-sky-500/5 rounded-lg transition-colors"></span>
+                  <i className="fa-solid fa-chevron-down ml-1 text-xs group-hover:rotate-180 transition-transform duration-300"></i>
+                  <div className="absolute inset-0 bg-primary-50 dark:bg-primary-900/30 rounded-xl scale-0 group-hover:scale-100 transition-transform duration-300 origin-center"></div>
                 </button>
-                
+                <div className={`absolute top-full left-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 transition-all duration-300 z-50 ${servicesOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+                  <div className="p-2">
+                    <Link href="/services" className="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/30 rounded-xl transition-all duration-300">
+                      <i className="fa-solid fa-user mr-3 text-primary-500"></i>
+                      Personal Banking
+                    </Link>
+                    <Link href="/services" className="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/30 rounded-xl transition-all duration-300">
+                      <i className="fa-solid fa-briefcase mr-3 text-blue-500"></i>
+                      Business Banking
+                    </Link>
+                    <Link href="/services" className="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/30 rounded-xl transition-all duration-300">
+                      <i className="fa-solid fa-handshake mr-3 text-green-500"></i>
+                      Loans &amp; Credit
+                    </Link>
+                    <Link href="/services" className="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/30 rounded-xl transition-all duration-300">
+                      <i className="fa-solid fa-credit-card mr-3 text-purple-500"></i>
+                      Cards
+                    </Link>
+                    <Link href="/grants" className="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/30 rounded-xl transition-all duration-300">
+                      <i className="fa-solid fa-hand-holding-dollar mr-3 text-orange-500"></i>
+                      Grants &amp; Aid
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              <Link href="/contact" className="relative px-4 py-2 text-gray-700 dark:text-gray-300 font-medium transition-all duration-300 hover:text-primary-600 dark:hover:text-primary-400 group">
+                <span className="relative z-10">Contact</span>
+                <div className="absolute inset-0 bg-primary-50 dark:bg-primary-900/30 rounded-xl scale-0 group-hover:scale-100 transition-transform duration-300 origin-center"></div>
+              </Link>
+            </div>
+
+            {/* Desktop Action Buttons */}
+            <div className="hidden lg:flex items-center space-x-3">
+              {/* Dark Mode Toggle with animation */}
+              <button
+                onClick={toggleDarkMode}
+                className="relative p-3 rounded-2xl bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 text-gray-600 dark:text-gray-300 hover:from-primary-50 hover:to-primary-100 dark:hover:from-primary-900/30 dark:hover:to-primary-800/30 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 group"
+              >
+                {darkMode ? (
+                  <i className="fa-solid fa-sun text-lg group-hover:rotate-180 transition-transform duration-500"></i>
+                ) : (
+                  <i className="fa-solid fa-moon text-lg group-hover:rotate-12 transition-transform duration-300"></i>
+                )}
+              </button>
+
+              {/* Login Button */}
+              <Link href="/login" className="relative px-4 py-2.5 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-semibold transition-all duration-300 group">
+                <span className="relative z-10">Login</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-primary-50 to-primary-100 dark:from-primary-900/30 dark:to-primary-800/30 rounded-xl scale-0 group-hover:scale-100 transition-transform duration-300"></div>
+              </Link>
+
+              {/* Open Account Button */}
+              <Link href="/register" className="relative px-6 py-2.5 bg-gradient-to-r from-primary-600 via-primary-500 to-primary-600 hover:from-primary-700 hover:via-primary-600 hover:to-primary-700 text-white font-semibold rounded-2xl transition-all duration-300 shadow-lg shadow-primary-600/25 hover:shadow-xl hover:shadow-primary-600/40 hover:-translate-y-0.5 group overflow-hidden">
+                <span className="relative z-10 flex items-center">
+                  <i className="fa-solid fa-sparkles mr-2 group-hover:animate-spin"></i>
+                  Open Account
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+              </Link>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="lg:hidden relative p-3 rounded-2xl bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 text-gray-600 dark:text-gray-300 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5"
+            >
+              {!mobileMenuOpen ? (
+                <i className="fa-solid fa-bars text-lg transition-transform duration-300"></i>
+              ) : (
+                <i className="fa-solid fa-times text-lg transition-transform duration-300"></i>
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Enhanced Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden absolute top-full left-0 right-0 bg-gradient-to-br from-white via-primary-50 to-white dark:from-gray-900 dark:via-primary-900 dark:to-gray-900 backdrop-blur-xl border-t border-primary-200/70 dark:border-primary-700/50 shadow-2xl shadow-primary-500/20">
+            {/* Mobile menu background pattern */}
+            <div className="absolute inset-0 overflow-hidden">
+              <div className="absolute top-0 left-1/4 w-32 h-32 bg-primary-200/20 dark:bg-primary-800/20 rounded-full blur-2xl"></div>
+              <div className="absolute bottom-0 right-1/4 w-24 h-24 bg-teal-200/20 dark:bg-teal-800/20 rounded-full blur-xl"></div>
+            </div>
+
+            <div className="relative px-6 py-6 space-y-2">
+              <Link href="/" className="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-all duration-300 rounded-2xl hover:bg-gradient-to-r hover:from-primary-50 hover:to-primary-100 dark:hover:from-primary-900/30 dark:hover:to-primary-800/30 hover:shadow-lg hover:translate-x-2 group">
+                <i className="fa-solid fa-home mr-4 text-primary-500 group-hover:scale-110 transition-transform duration-300"></i>
+                <span>Home</span>
+                <i className="fa-solid fa-chevron-right ml-auto text-xs opacity-0 group-hover:opacity-100 transition-all duration-300"></i>
+              </Link>
+              <Link href="/about" className="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-all duration-300 rounded-2xl hover:bg-gradient-to-r hover:from-primary-50 hover:to-primary-100 dark:hover:from-primary-900/30 dark:hover:to-primary-800/30 hover:shadow-lg hover:translate-x-2 group">
+                <i className="fa-solid fa-info-circle mr-4 text-teal-500 group-hover:scale-110 transition-transform duration-300"></i>
+                <span>About</span>
+                <i className="fa-solid fa-chevron-right ml-auto text-xs opacity-0 group-hover:opacity-100 transition-all duration-300"></i>
+              </Link>
+
+              {/* Services Submenu */}
+              <div className="space-y-2">
+                <button onClick={() => setServicesOpen(!servicesOpen)} className="flex items-center w-full px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-all duration-300 rounded-2xl hover:bg-gradient-to-r hover:from-primary-50 hover:to-primary-100 dark:hover:from-primary-900/30 dark:hover:to-primary-800/30 hover:shadow-lg hover:translate-x-2 group">
+                  <i className="fa-solid fa-cogs mr-4 text-purple-500 group-hover:scale-110 transition-transform duration-300"></i>
+                  <span>Services</span>
+                  <i className={`fa-solid fa-chevron-down ml-auto text-xs transition-transform duration-300 ${servicesOpen ? 'rotate-180' : ''}`}></i>
+                </button>
                 {servicesOpen && (
-                  <div className="absolute top-full left-0 w-64 pt-2">
-                    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden">
-                      <Link href="/services" className="block px-4 py-3 hover:bg-sky-500/5 dark:hover:bg-sky-500/10 transition-colors">
-                        <div className="flex items-center space-x-3">
-                          <div className="w-10 h-10 rounded-lg bg-sky-500/10 flex items-center justify-center">
-                            <i className="fas fa-piggy-bank text-[#0ea5e9]"></i>
-                          </div>
-                          <div>
-                            <span className="block text-gray-800 dark:text-white font-medium">Savings</span>
-                            <span className="text-xs text-gray-500 dark:text-gray-400">High-yield savings accounts</span>
-                          </div>
-                        </div>
-                      </Link>
-                      <Link href="/services" className="block px-4 py-3 hover:bg-sky-500/5 dark:hover:bg-sky-500/10 transition-colors">
-                        <div className="flex items-center space-x-3">
-                          <div className="w-10 h-10 rounded-lg bg-sky-500/10 flex items-center justify-center">
-                            <i className="fas fa-credit-card text-[#0ea5e9]"></i>
-                          </div>
-                          <div>
-                            <span className="block text-gray-800 dark:text-white font-medium">Credit Cards</span>
-                            <span className="text-xs text-gray-500 dark:text-gray-400">Rewards & cashback cards</span>
-                          </div>
-                        </div>
-                      </Link>
-                      <Link href="/services" className="block px-4 py-3 hover:bg-sky-500/5 dark:hover:bg-sky-500/10 transition-colors">
-                        <div className="flex items-center space-x-3">
-                          <div className="w-10 h-10 rounded-lg bg-sky-500/10 flex items-center justify-center">
-                            <i className="fas fa-home text-[#0ea5e9]"></i>
-                          </div>
-                          <div>
-                            <span className="block text-gray-800 dark:text-white font-medium">Mortgages</span>
-                            <span className="text-xs text-gray-500 dark:text-gray-400">Home loans & refinancing</span>
-                          </div>
-                        </div>
-                      </Link>
-                      <Link href="/services" className="block px-4 py-3 hover:bg-sky-500/5 dark:hover:bg-sky-500/10 transition-colors">
-                        <div className="flex items-center space-x-3">
-                          <div className="w-10 h-10 rounded-lg bg-sky-500/10 flex items-center justify-center">
-                            <i className="fas fa-car text-[#0ea5e9]"></i>
-                          </div>
-                          <div>
-                            <span className="block text-gray-800 dark:text-white font-medium">Auto Loans</span>
-                            <span className="text-xs text-gray-500 dark:text-gray-400">New & used vehicle financing</span>
-                          </div>
-                        </div>
-                      </Link>
-                    </div>
+                  <div className="ml-8 space-y-1">
+                    <Link href="/services" className="flex items-center px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 text-sm transition-all duration-300 rounded-xl hover:bg-gradient-to-r hover:from-primary-50 hover:to-primary-100 dark:hover:from-primary-900/30 dark:hover:to-primary-800/30">
+                      <i className="fa-solid fa-user mr-3 text-primary-400"></i>
+                      Personal Banking
+                    </Link>
+                    <Link href="/services" className="flex items-center px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 text-sm transition-all duration-300 rounded-xl hover:bg-gradient-to-r hover:from-primary-50 hover:to-primary-100 dark:hover:from-primary-900/30 dark:hover:to-primary-800/30">
+                      <i className="fa-solid fa-briefcase mr-3 text-blue-400"></i>
+                      Business Banking
+                    </Link>
+                    <Link href="/services" className="flex items-center px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 text-sm transition-all duration-300 rounded-xl hover:bg-gradient-to-r hover:from-primary-50 hover:to-primary-100 dark:hover:from-primary-900/30 dark:hover:to-primary-800/30">
+                      <i className="fa-solid fa-handshake mr-3 text-green-400"></i>
+                      Loans &amp; Credit
+                    </Link>
+                    <Link href="/services" className="flex items-center px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 text-sm transition-all duration-300 rounded-xl hover:bg-gradient-to-r hover:from-primary-50 hover:to-primary-100 dark:hover:from-primary-900/30 dark:hover:to-primary-800/30">
+                      <i className="fa-solid fa-credit-card mr-3 text-purple-400"></i>
+                      Cards
+                    </Link>
+                    <Link href="/grants" className="flex items-center px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 text-sm transition-all duration-300 rounded-xl hover:bg-gradient-to-r hover:from-primary-50 hover:to-primary-100 dark:hover:from-primary-900/30 dark:hover:to-primary-800/30">
+                      <i className="fa-solid fa-hand-holding-dollar mr-3 text-orange-400"></i>
+                      Grants &amp; Aid
+                    </Link>
                   </div>
                 )}
               </div>
 
-              <Link href="/grants" className="relative px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-[#0ea5e9] dark:hover:text-[#0ea5e9] transition-colors group">
-                <span className="relative z-10">Grants</span>
-                <span className="absolute inset-0 bg-transparent group-hover:bg-sky-500/5 rounded-lg transition-colors"></span>
+              <Link href="/contact" className="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-all duration-300 rounded-2xl hover:bg-gradient-to-r hover:from-primary-50 hover:to-primary-100 dark:hover:from-primary-900/30 dark:hover:to-primary-800/30 hover:shadow-lg hover:translate-x-2 group">
+                <i className="fa-solid fa-envelope mr-4 text-orange-500 group-hover:scale-110 transition-transform duration-300"></i>
+                <span>Contact</span>
+                <i className="fa-solid fa-chevron-right ml-auto text-xs opacity-0 group-hover:opacity-100 transition-all duration-300"></i>
               </Link>
-              <Link href="/contact" className="relative px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-[#0ea5e9] dark:hover:text-[#0ea5e9] transition-colors group">
-                <span className="relative z-10">Contact</span>
-                <span className="absolute inset-0 bg-transparent group-hover:bg-sky-500/5 rounded-lg transition-colors"></span>
+
+              <Link href="#" className="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-all duration-300 rounded-2xl hover:bg-gradient-to-r hover:from-primary-50 hover:to-primary-100 dark:hover:from-primary-900/30 dark:hover:to-primary-800/30 hover:shadow-lg hover:translate-x-2 group">
+                <i className="fa-solid fa-mobile-alt mr-4 text-indigo-500 group-hover:scale-110 transition-transform duration-300"></i>
+                <span>Mobile App</span>
+                <i className="fa-solid fa-chevron-right ml-auto text-xs opacity-0 group-hover:opacity-100 transition-all duration-300"></i>
               </Link>
-            </div>
 
-            {/* Right side items */}
-            <div className="flex items-center space-x-4">
-              {/* Dark mode toggle */}
-              <button onClick={toggleDarkMode} className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-                {darkMode ? (
-                  <i className="fas fa-sun text-yellow-500"></i>
-                ) : (
-                  <i className="fas fa-moon text-gray-600"></i>
-                )}
-              </button>
-
-              {/* Auth buttons - Desktop */}
-              <div className="hidden lg:flex items-center space-x-3">
-                <Link href="/login" className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-[#0ea5e9] transition-colors font-medium">
-                  Login
-                </Link>
-                <Link href="/register" className="flex items-center px-6 py-2.5 bg-[#0ea5e9] hover:bg-[#0284c7] rounded-full text-white font-medium transition-all">
-                  <i className="fas fa-sparkles mr-2"></i>
-                  Open Account
-                </Link>
+              {/* Mobile Dark Mode Toggle */}
+              <div className="pt-4 mt-4 border-t border-primary-700/50">
+                <button onClick={toggleDarkMode} className="flex items-center w-full px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-all duration-300 rounded-2xl hover:bg-gradient-to-r hover:from-primary-50 hover:to-primary-100 dark:hover:from-primary-900/30 dark:hover:to-primary-800/30 hover:shadow-lg hover:translate-x-2 group">
+                  <div className="flex items-center justify-center w-8 h-8 mr-4 rounded-xl bg-gradient-to-br from-yellow-400 to-orange-500 dark:from-blue-500 dark:to-purple-600 group-hover:scale-110 transition-transform duration-300">
+                    {darkMode ? (
+                      <i className="fa-solid fa-sun text-white text-sm group-hover:rotate-180 transition-transform duration-500"></i>
+                    ) : (
+                      <i className="fa-solid fa-moon text-white text-sm group-hover:rotate-12 transition-transform duration-300"></i>
+                    )}
+                  </div>
+                  <span>{darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}</span>
+                  <i className="fa-solid fa-chevron-right ml-auto text-xs opacity-0 group-hover:opacity-100 transition-all duration-300"></i>
+                </button>
               </div>
-
-              {/* Mobile menu button */}
-              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-                {isMenuOpen ? (
-                  <i className="fas fa-times text-gray-600 dark:text-gray-300 text-xl"></i>
-                ) : (
-                  <i className="fas fa-bars text-gray-600 dark:text-gray-300 text-xl"></i>
-                )}
-              </button>
             </div>
           </div>
-
-          {/* Mobile menu */}
-          {isMenuOpen && (
-            <div className="lg:hidden py-4 border-t border-gray-100 dark:border-gray-800">
-              <div className="flex flex-col space-y-2">
-                <Link href="/" className="px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-sky-500/5 rounded-lg transition-colors">
-                  Home
-                </Link>
-                <Link href="/about" className="px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-sky-500/5 rounded-lg transition-colors">
-                  About
-                </Link>
-                
-                {/* Mobile Services Submenu */}
-                <div>
-                  <button onClick={() => setMobileServicesOpen(!mobileServicesOpen)} className="w-full px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-sky-500/5 rounded-lg transition-colors flex items-center justify-between">
-                    <span>Services</span>
-                    <i className={`fas fa-chevron-down text-xs transition-transform duration-300 ${mobileServicesOpen ? 'rotate-180' : ''}`}></i>
-                  </button>
-                  {mobileServicesOpen && (
-                    <div className="pl-4 space-y-1 mt-1">
-                      <Link href="/services" className="block px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-[#0ea5e9] transition-colors">
-                        <i className="fas fa-piggy-bank mr-2"></i> Savings
-                      </Link>
-                      <Link href="/services" className="block px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-[#0ea5e9] transition-colors">
-                        <i className="fas fa-credit-card mr-2"></i> Credit Cards
-                      </Link>
-                      <Link href="/services" className="block px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-[#0ea5e9] transition-colors">
-                        <i className="fas fa-home mr-2"></i> Mortgages
-                      </Link>
-                      <Link href="/services" className="block px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-[#0ea5e9] transition-colors">
-                        <i className="fas fa-car mr-2"></i> Auto Loans
-                      </Link>
-                    </div>
-                  )}
-                </div>
-
-                <Link href="/grants" className="px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-sky-500/5 rounded-lg transition-colors">
-                  Grants
-                </Link>
-                <Link href="/contact" className="px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-sky-500/5 rounded-lg transition-colors">
-                  Contact
-                </Link>
-              </div>
-            </div>
-          )}
-        </div>
+        )}
       </nav>
     </header>
   );
