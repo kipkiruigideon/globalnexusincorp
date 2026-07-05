@@ -1,0 +1,23 @@
+# Render Blueprint — provisions the web service + PostgreSQL and wires env vars.
+# Docs: https://render.com/docs/blueprint-spec
+databases:
+  - name: globalnexus-db
+    databaseName: globalnexus
+    plan: free
+
+services:
+  - type: web
+    name: globalnexusincorp
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: globalnexus-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: NODE_VERSION
+        value: "20.9.0"
