@@ -31,18 +31,13 @@ export default function DarkModeToggle() {
     <div className="fixed top-4 right-4 z-50">
       <button
         onClick={toggleDarkMode}
-        className="dark-mode-toggle p-3 rounded-2xl text-[#D1D5DB] shadow-lg hover:shadow-xl backdrop-blur-xl transition-all duration-300 hover:scale-110"
-        style={{ backgroundColor: '#1F2937CC', borderColor: 'rgb(55 65 81 / 0.5)', borderWidth: '1px', borderStyle: 'solid' }}
+        className="dark-mode-toggle relative p-3 rounded-2xl bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 text-gray-600 dark:text-gray-300 hover:from-primary-50 hover:to-primary-100 dark:hover:from-primary-900/30 dark:hover:to-primary-800/30 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 group"
         title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
       >
         {darkMode ? (
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
-          </svg>
+          <i className="fa-solid fa-sun text-lg group-hover:rotate-180 transition-transform duration-500"></i>
         ) : (
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-          </svg>
+          <i className="fa-solid fa-moon text-lg group-hover:rotate-12 transition-transform duration-300"></i>
         )}
       </button>
     </div>
