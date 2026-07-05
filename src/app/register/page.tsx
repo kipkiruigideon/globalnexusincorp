@@ -125,11 +125,11 @@ export default function RegisterPage() {
       <div className="hidden lg:flex lg:w-[45%] flex-col justify-center items-center p-12 bg-gradient-to-br from-[#0f172a] via-[#1e3a5f] to-[#0c4a6e] relative overflow-hidden">
         {/* Animated floating circles */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-[10%] left-[10%] w-72 h-72 bg-[#0ea5e9]/10 rounded-full blur-2xl animate-float-slow"></div>
-          <div className="absolute bottom-[15%] right-[5%] w-96 h-96 bg-[#0ea5e9]/10 rounded-full blur-2xl animate-float-medium"></div>
-          <div className="absolute top-[50%] left-[50%] w-80 h-80 bg-[#38bdf8]/10 rounded-full blur-2xl animate-float-fast"></div>
-          <div className="absolute bottom-[40%] left-[15%] w-64 h-64 bg-white/[0.07] rounded-full blur-2xl animate-float-reverse"></div>
-          <div className="absolute top-[25%] right-[20%] w-56 h-56 bg-[#0ea5e9]/[0.07] rounded-full blur-2xl animate-float-slow"></div>
+          <div className="absolute top-[10%] left-[10%] w-72 h-72 bg-[#0ea5e9]/20 rounded-full blur-2xl animate-float-slow"></div>
+          <div className="absolute bottom-[15%] right-[5%] w-96 h-96 bg-[#0ea5e9]/20 rounded-full blur-2xl animate-float-medium"></div>
+          <div className="absolute top-[50%] left-[50%] w-80 h-80 bg-[#38bdf8]/20 rounded-full blur-2xl animate-float-fast"></div>
+          <div className="absolute bottom-[40%] left-[15%] w-64 h-64 bg-white/10 rounded-full blur-2xl animate-float-reverse"></div>
+          <div className="absolute top-[25%] right-[20%] w-56 h-56 bg-[#0ea5e9]/15 rounded-full blur-2xl animate-float-slow"></div>
         </div>
         {/* Logo */}
         <div className="mb-8 bg-white/10 backdrop-blur-sm rounded-2xl p-6 relative z-10 hover:scale-105 transition-transform duration-300">
