@@ -53,6 +53,30 @@ export default function RegisterPage() {
 
   const handleNext = () => {
     setError('');
+    if (step === 1) {
+      if (!formData.firstName.trim() || !formData.lastName.trim() || !formData.username.trim()) {
+        setError('Please fill in all required fields');
+        return;
+      }
+    } else if (step === 2) {
+      if (
+        !formData.email.trim() ||
+        !formData.phone.trim() ||
+        !formData.address.trim() ||
+        !formData.city.trim() ||
+        !formData.state.trim() ||
+        !formData.zipCode.trim() ||
+        !formData.country.trim()
+      ) {
+        setError('Please fill in all required fields');
+        return;
+      }
+    } else if (step === 3) {
+      if (!formData.employmentStatus.trim() || !formData.annualIncome.trim()) {
+        setError('Please fill in all required fields');
+        return;
+      }
+    }
     if (step < 4) setStep(step + 1);
   };
 
