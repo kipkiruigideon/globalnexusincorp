@@ -1,15 +1,16 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { User, getCurrentUser, loginUser, logoutUser, registerUser, updateCurrentUser } from '@/lib/auth';
+import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
+import { User } from '@/lib/auth';
 
 interface AuthContextType {
   user: User | null;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<{ success: boolean; message: string }>;
   register: (data: RegisterData) => Promise<{ success: boolean; message: string }>;
-  logout: () => void;
+  logout: () => Promise<void>;
   updateUser: (data: Partial<User>) => void;
+  refreshUser: () => Promise<void>;
 }
 
 interface RegisterData {
@@ -36,47 +37,81 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Check for existing session on mount
-  useEffect(() => {
-    const currentUser = getCurrentUser();
-    setUser(currentUser);
-    setIsLoading(false);
+  const refreshUser = useCallback(async () => {
+    try {
+      const res = await fetch('/api/auth/me', { cache: 'no-store' });
+      const data = await res.json();
+      setUser(data.user ?? null);
+    } catch {
+      setUser(null);
+    }
   }, []);
 
+  // Check for an existing session on mount
+  useEffect(() => {
+    (async () => {
+      await refreshUser();
+      setIsLoading(false);
+    })();
+  }, [refreshUser]);
+
   const login = async (email: string, password: string) => {
-    const result = loginUser(email, password);
-    if (result.success && result.user) {
-      setUser(result.user);
-    }
-    return { success: result.success, message: result.message };
-  };
-
-  const register = async (data: RegisterData) => {
-    const result = registerUser(data);
-    if (result.success && result.user) {
-      // Auto-login after registration
-      setUser(result.user);
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('gni_current_user', JSON.stringify(result.user));
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await res.json();
+      if (data.success && data.user) {
+        setUser(data.user);
       }
+      return { success: !!data.success, message: data.message ?? '' };
+    } catch {
+      return { success: false, message: 'An error occurred. Please try again.' };
     }
-    return { success: result.success, message: result.message };
   };
 
-  const logout = () => {
-    logoutUser();
+  const register = async (payload: RegisterData) => {
+    try {
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (data.success && data.user) {
+        setUser(data.user);
+      }
+      return { success: !!data.success, message: data.message ?? '' };
+    } catch {
+      return { success: false, message: 'An error occurred. Please try again.' };
+    }
+  };
+
+  const logout = async () => {
+    try {
+      await fetch('/api/auth/logout', { method: 'POST' });
+    } catch {
+      // Ignore network errors on logout; clear local state regardless.
+    }
     setUser(null);
   };
 
   const updateUser = (data: Partial<User>) => {
-    const updatedUser = updateCurrentUser(data);
-    if (updatedUser) {
-      setUser(updatedUser);
-    }
+    // Optimistically update local state, then persist to the server.
+    setUser((prev) => (prev ? { ...prev, ...data } : prev));
+    fetch('/api/auth/update', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    }).catch(() => {
+      // Ignore; a subsequent refreshUser() will reconcile server state.
+    });
   };
 
   return (
-    <AuthContext.Provider value={{ user, isLoading, login, register, logout, updateUser }}>
+    <AuthContext.Provider value={{ user, isLoading, login, register, logout, updateUser, refreshUser }}>
       {children}
     </AuthContext.Provider>
   );
@@ -89,3 +124,4 @@ export function useAuth() {
   }
   return context;
 }
+
