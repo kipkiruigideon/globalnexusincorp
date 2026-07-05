@@ -48,10 +48,11 @@ export async function destroySession(): Promise<void> {
 }
 
 // Remove sensitive fields before returning a user to the client.
-export function sanitizeUser<T extends { passwordHash?: string }>(
-  user: T
-): Omit<T, 'passwordHash'> {
+export function sanitizeUser<
+  T extends { passwordHash?: string; transactionPinHash?: string | null }
+>(user: T): Omit<T, 'passwordHash' | 'transactionPinHash'> {
   const clone = { ...user };
   delete (clone as { passwordHash?: string }).passwordHash;
+  delete (clone as { transactionPinHash?: string | null }).transactionPinHash;
   return clone;
 }

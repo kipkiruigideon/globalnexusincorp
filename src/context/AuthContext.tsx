@@ -27,8 +27,9 @@ interface RegisterData {
   zipCode: string;
   country?: string;
   accountType: string;
-  employmentStatus: string;
-  annualIncome: string;
+  currency: string;
+  transactionPin: string;
+  profilePicture?: string;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);

@@ -15,8 +15,8 @@ export interface User {
   zipCode: string;
   country?: string | null;
   accountType: string;
-  employmentStatus: string;
-  annualIncome: string;
+  currency: string;
+  profilePicture?: string | null;
   balance: number;
   accountNumber: string;
   createdAt: string;

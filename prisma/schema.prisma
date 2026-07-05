@@ -21,10 +21,11 @@ model User {
   state            String   @default("")
   zipCode          String   @default("")
   country          String?
-  accountType      String   @default("checking")
-  employmentStatus String   @default("")
-  annualIncome     String   @default("")
-  balance          Float    @default(0)
+  accountType        String   @default("checking")
+  currency           String   @default("USD")
+  transactionPinHash String?
+  profilePicture     String?
+  balance            Float    @default(0)
   accountNumber    String   @unique
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt

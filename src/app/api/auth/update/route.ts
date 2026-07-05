@@ -17,8 +17,8 @@ const ALLOWED_FIELDS = [
   'zipCode',
   'country',
   'accountType',
-  'employmentStatus',
-  'annualIncome',
+  'currency',
+  'profilePicture',
   'balance',
 ] as const;
 

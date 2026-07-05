@@ -31,8 +31,9 @@ export async function POST(req: NextRequest) {
       zipCode,
       country,
       accountType,
-      employmentStatus,
-      annualIncome,
+      currency,
+      transactionPin,
+      profilePicture,
     } = data ?? {};
 
     if (!email || !password || !firstName || !lastName) {
@@ -74,6 +75,9 @@ export async function POST(req: NextRequest) {
     }
 
     const passwordHash = await bcrypt.hash(String(password), 10);
+    const transactionPinHash = transactionPin
+      ? await bcrypt.hash(String(transactionPin), 10)
+      : null;
 
     const user = await prisma.user.create({
       data: {
@@ -90,8 +94,9 @@ export async function POST(req: NextRequest) {
         zipCode: zipCode ? String(zipCode) : '',
         country: country ? String(country) : null,
         accountType: accountType ? String(accountType) : 'checking',
-        employmentStatus: employmentStatus ? String(employmentStatus) : '',
-        annualIncome: annualIncome ? String(annualIncome) : '',
+        currency: currency ? String(currency) : 'USD',
+        transactionPinHash,
+        profilePicture: profilePicture ? String(profilePicture) : null,
         accountNumber: generateAccountNumber(),
       },
     });

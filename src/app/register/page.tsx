@@ -13,6 +13,9 @@ export default function RegisterPage() {
   const [step, setStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [showPin, setShowPin] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
     // Step 1: Personal Info
     firstName: '',
@@ -27,13 +30,14 @@ export default function RegisterPage() {
     state: '',
     zipCode: '',
     country: '',
-    // Step 3: Account Info
-    accountType: 'checking',
-    employmentStatus: '',
-    annualIncome: '',
+    // Step 3: Account Setup
+    currency: '',
+    accountType: '',
+    transactionPin: '',
     // Step 4: Security
     password: '',
     confirmPassword: '',
+    profilePicture: '',
     agreeTerms: false,
   });
 
@@ -72,12 +76,31 @@ export default function RegisterPage() {
         return;
       }
     } else if (step === 3) {
-      if (!formData.employmentStatus.trim() || !formData.annualIncome.trim()) {
+      if (!formData.currency.trim() || !formData.accountType.trim() || !formData.transactionPin.trim()) {
         setError('Please fill in all required fields');
+        return;
+      }
+      if (!/^\d{4}$/.test(formData.transactionPin)) {
+        setError('Transaction PIN must be exactly 4 digits');
         return;
       }
     }
     if (step < 4) setStep(step + 1);
+  };
+
+  const handleProfilePicture = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) {
+      setError('Profile picture must be under 2MB');
+      return;
+    }
+    setError('');
+    const reader = new FileReader();
+    reader.onload = () => {
+      setFormData((prev) => ({ ...prev, profilePicture: reader.result as string }));
+    };
+    reader.readAsDataURL(file);
   };
 
   const handlePrev = () => {
@@ -124,8 +147,9 @@ export default function RegisterPage() {
         zipCode: formData.zipCode,
         country: formData.country,
         accountType: formData.accountType,
-        employmentStatus: formData.employmentStatus,
-        annualIncome: formData.annualIncome,
+        currency: formData.currency,
+        transactionPin: formData.transactionPin,
+        profilePicture: formData.profilePicture,
       });
       
       if (result.success) {
@@ -245,7 +269,7 @@ export default function RegisterPage() {
             <h3 className="text-base font-semibold text-white">
                 {step === 1 && 'Personal Information'}
                 {step === 2 && 'Contact Information'}
-                {step === 3 && 'Account Details'}
+                {step === 3 && 'Account Setup'}
                 {step === 4 && 'Security Setup'}
               </h3>
               <p className="text-sm text-gray-400">
@@ -470,82 +494,86 @@ export default function RegisterPage() {
                 </div>
               )}
 
-              {/* Step 3: Account Info */}
+              {/* Step 3: Account Setup */}
               {step === 3 && (
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Account Type <span className="text-red-400">*</span>
-                    </label>
-                    <div className="grid grid-cols-2 gap-4">
-                      {['checking', 'savings'].map((type) => (
-                        <button
-                          key={type}
-                          type="button"
-                          onClick={() => setFormData({ ...formData, accountType: type })}
-                          className={`p-4 rounded-xl border-2 transition-all ${
-                            formData.accountType === type
-                              ? 'border-[#0ea5e9] bg-[#0ea5e9]/10 text-[#0ea5e9]'
-                              : 'border-gray-600 hover:border-gray-500 text-gray-300'
-                          }`}
-                        >
-                          <div className="text-center">
-                            <i className={`fa-solid ${type === 'checking' ? 'fa-credit-card' : 'fa-piggy-bank'} text-2xl mb-2`}></i>
-                            <p className="font-semibold capitalize">{type}</p>
-                          </div>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Employment Status <span className="text-red-400">*</span>
-                    </label>
-                    <div className="relative">
-                      <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
-                        <i className="fa-solid fa-briefcase"></i>
-                      </span>
-                      <select
-                        value={formData.employmentStatus}
-                        onChange={(e) => setFormData({ ...formData, employmentStatus: e.target.value })}
-                        className="w-full pl-12 pr-4 py-3 bg-[#0f172a] border border-gray-600 rounded-xl text-white focus:ring-2 focus:ring-[#0ea5e9] focus:border-[#0ea5e9] transition-colors appearance-none"
-                        required
-                      >
-                        <option value="" className="bg-[#0f172a]">Select status</option>
-                        <option value="employed" className="bg-[#0f172a]">Employed</option>
-                        <option value="self-employed" className="bg-[#0f172a]">Self Employed</option>
-                        <option value="unemployed" className="bg-[#0f172a]">Unemployed</option>
-                        <option value="student" className="bg-[#0f172a]">Student</option>
-                        <option value="retired" className="bg-[#0f172a]">Retired</option>
-                      </select>
-                      <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 pointer-events-none">
-                        <i className="fa-solid fa-chevron-down"></i>
-                      </span>
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Annual Income <span className="text-red-400">*</span>
+                      Currency <span className="text-red-400">*</span>
                     </label>
                     <div className="relative">
                       <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
                         <i className="fa-solid fa-dollar-sign"></i>
                       </span>
                       <select
-                        value={formData.annualIncome}
-                        onChange={(e) => setFormData({ ...formData, annualIncome: e.target.value })}
+                        value={formData.currency}
+                        onChange={(e) => setFormData({ ...formData, currency: e.target.value })}
                         className="w-full pl-12 pr-4 py-3 bg-[#0f172a] border border-gray-600 rounded-xl text-white focus:ring-2 focus:ring-[#0ea5e9] focus:border-[#0ea5e9] transition-colors appearance-none"
                         required
                       >
-                        <option value="" className="bg-[#0f172a]">Select range</option>
-                        <option value="0-25000" className="bg-[#0f172a]">$0 - $25,000</option>
-                        <option value="25000-50000" className="bg-[#0f172a]">$25,000 - $50,000</option>
-                        <option value="50000-100000" className="bg-[#0f172a]">$50,000 - $100,000</option>
-                        <option value="100000+" className="bg-[#0f172a]">$100,000+</option>
+                        <option value="" className="bg-[#0f172a]">Select Currency</option>
+                        <option value="USD" className="bg-[#0f172a]">USD - US Dollar</option>
+                        <option value="EUR" className="bg-[#0f172a]">EUR - Euro</option>
+                        <option value="GBP" className="bg-[#0f172a]">GBP - British Pound</option>
+                        <option value="CAD" className="bg-[#0f172a]">CAD - Canadian Dollar</option>
+                        <option value="AUD" className="bg-[#0f172a]">AUD - Australian Dollar</option>
+                        <option value="JPY" className="bg-[#0f172a]">JPY - Japanese Yen</option>
                       </select>
                       <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 pointer-events-none">
                         <i className="fa-solid fa-chevron-down"></i>
                       </span>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                      Account Type <span className="text-red-400">*</span>
+                    </label>
+                    <div className="relative">
+                      <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
+                        <i className="fa-solid fa-building-columns"></i>
+                      </span>
+                      <select
+                        value={formData.accountType}
+                        onChange={(e) => setFormData({ ...formData, accountType: e.target.value })}
+                        className="w-full pl-12 pr-4 py-3 bg-[#0f172a] border border-gray-600 rounded-xl text-white focus:ring-2 focus:ring-[#0ea5e9] focus:border-[#0ea5e9] transition-colors appearance-none"
+                        required
+                      >
+                        <option value="" className="bg-[#0f172a]">Select Account Type</option>
+                        <option value="checking" className="bg-[#0f172a]">Checking Account</option>
+                        <option value="savings" className="bg-[#0f172a]">Savings Account</option>
+                        <option value="current" className="bg-[#0f172a]">Current Account</option>
+                        <option value="business" className="bg-[#0f172a]">Business Account</option>
+                      </select>
+                      <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 pointer-events-none">
+                        <i className="fa-solid fa-chevron-down"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                      Transaction PIN <span className="text-red-400">*</span>
+                    </label>
+                    <div className="relative">
+                      <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
+                        <i className="fa-solid fa-fingerprint"></i>
+                      </span>
+                      <input
+                        type={showPin ? 'text' : 'password'}
+                        inputMode="numeric"
+                        maxLength={4}
+                        value={formData.transactionPin}
+                        onChange={(e) => setFormData({ ...formData, transactionPin: e.target.value.replace(/\D/g, '').slice(0, 4) })}
+                        className="w-full pl-12 pr-12 py-3 bg-[#0f172a] border border-gray-600 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-[#0ea5e9] focus:border-[#0ea5e9] transition-colors tracking-[0.5em]"
+                        placeholder="4-digit PIN"
+                        required
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPin(!showPin)}
+                        className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-gray-300 transition-colors"
+                      >
+                        <i className={`fa-solid ${showPin ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -563,13 +591,20 @@ export default function RegisterPage() {
                         <i className="fa-solid fa-lock"></i>
                       </span>
                       <input
-                        type="password"
+                        type={showPassword ? 'text' : 'password'}
                         value={formData.password}
                         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                        className="w-full pl-12 pr-4 py-3 bg-[#0f172a] border border-gray-600 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-[#0ea5e9] focus:border-[#0ea5e9] transition-colors"
-                        placeholder="••••••••"
+                        className="w-full pl-12 pr-12 py-3 bg-[#0f172a] border border-gray-600 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-[#0ea5e9] focus:border-[#0ea5e9] transition-colors"
+                        placeholder="Create strong password"
                         required
                       />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-gray-300 transition-colors"
+                      >
+                        <i className={`fa-solid ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+                      </button>
                     </div>
                   </div>
                   <div>
@@ -581,12 +616,40 @@ export default function RegisterPage() {
                         <i className="fa-solid fa-lock"></i>
                       </span>
                       <input
-                        type="password"
+                        type={showConfirmPassword ? 'text' : 'password'}
                         value={formData.confirmPassword}
                         onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                        className="w-full pl-12 pr-4 py-3 bg-[#0f172a] border border-gray-600 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-[#0ea5e9] focus:border-[#0ea5e9] transition-colors"
-                        placeholder="••••••••"
+                        className="w-full pl-12 pr-12 py-3 bg-[#0f172a] border border-gray-600 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-[#0ea5e9] focus:border-[#0ea5e9] transition-colors"
+                        placeholder="Confirm your password"
                         required
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-gray-300 transition-colors"
+                      >
+                        <i className={`fa-solid ${showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                      Profile Picture <span className="text-red-400">*</span>
+                    </label>
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 rounded-full bg-[#0f172a] border border-gray-600 flex items-center justify-center overflow-hidden shrink-0">
+                        {formData.profilePicture ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img src={formData.profilePicture} alt="Preview" className="w-full h-full object-cover" />
+                        ) : (
+                          <i className="fa-solid fa-user text-gray-400"></i>
+                        )}
+                      </div>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleProfilePicture}
+                        className="block w-full text-sm text-gray-400 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-[#0ea5e9] file:text-white file:font-medium hover:file:bg-[#0284c7] file:cursor-pointer file:transition-colors"
                       />
                     </div>
                   </div>
