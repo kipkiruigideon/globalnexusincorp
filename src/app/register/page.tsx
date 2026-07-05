@@ -149,9 +149,9 @@ export default function RegisterPage() {
       <div className="hidden lg:flex lg:w-[45%] flex-col justify-center items-center p-12 bg-gradient-to-br from-[#0f172a] via-[#1e3a5f] to-[#0c4a6e] relative overflow-hidden">
         {/* Animated floating circles */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[560px] h-[560px] bg-[#0ea5e9]/[0.05] border border-white/10 rounded-full animate-float-slow"></div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] h-[420px] bg-[#0ea5e9]/[0.06] border border-white/10 rounded-full animate-float-medium"></div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] bg-white/[0.06] border border-white/10 rounded-full animate-float-fast"></div>
+          <div className="absolute top-1/2 left-1/2 w-[560px] h-[560px] bg-[#0ea5e9]/[0.05] border border-white/10 rounded-full animate-float-center-1"></div>
+          <div className="absolute top-1/2 left-1/2 w-[420px] h-[420px] bg-[#0ea5e9]/[0.06] border border-white/10 rounded-full animate-float-center-2"></div>
+          <div className="absolute top-1/2 left-1/2 w-[280px] h-[280px] bg-white/[0.06] border border-white/10 rounded-full animate-float-center-3"></div>
         </div>
         {/* Logo */}
         <div className="mb-8 bg-white/10 backdrop-blur-sm rounded-2xl p-6 relative z-10 hover:scale-105 transition-transform duration-300">

@@ -53,10 +53,11 @@ export default function LoginPage() {
 
       {/* Left Panel - Branding */}
       <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-[#0f172a] via-[#1e3a5f] to-[#0c4a6e] flex-col items-center justify-center p-12 relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-20 left-20 w-72 h-72 bg-[#0ea5e9] rounded-full filter blur-3xl"></div>
-          <div className="absolute bottom-20 right-20 w-96 h-96 bg-[#0284c7] rounded-full filter blur-3xl"></div>
+        {/* Animated floating circles */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute top-1/2 left-1/2 w-[560px] h-[560px] bg-[#0ea5e9]/[0.05] border border-white/10 rounded-full animate-float-center-1"></div>
+          <div className="absolute top-1/2 left-1/2 w-[420px] h-[420px] bg-[#0ea5e9]/[0.06] border border-white/10 rounded-full animate-float-center-2"></div>
+          <div className="absolute top-1/2 left-1/2 w-[280px] h-[280px] bg-white/[0.06] border border-white/10 rounded-full animate-float-center-3"></div>
         </div>
         
         <div className="relative z-10 text-center max-w-md">
