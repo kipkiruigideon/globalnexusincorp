@@ -122,13 +122,14 @@ export default function RegisterPage() {
       <DarkModeToggle />
 
       {/* Left Panel - Branding */}
-      <div className="hidden lg:flex lg:w-[45%] flex-col justify-center items-center p-12 bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#0f172a] relative overflow-hidden">
+      <div className="hidden lg:flex lg:w-[45%] flex-col justify-center items-center p-12 bg-gradient-to-br from-[#0f172a] via-[#1e3a5f] to-[#0c4a6e] relative overflow-hidden">
         {/* Animated floating circles */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-[10%] left-[10%] w-72 h-72 bg-[#0ea5e9]/5 rounded-full blur-xl animate-float-slow"></div>
-          <div className="absolute bottom-[15%] right-[5%] w-96 h-96 bg-[#0ea5e9]/5 rounded-full blur-xl animate-float-medium"></div>
-          <div className="absolute top-[50%] left-[50%] w-64 h-64 bg-[#0ea5e9]/3 rounded-full blur-xl animate-float-fast"></div>
-          <div className="absolute bottom-[40%] left-[15%] w-48 h-48 bg-white/3 rounded-full blur-lg animate-float-reverse"></div>
+          <div className="absolute top-[10%] left-[10%] w-72 h-72 bg-[#0ea5e9]/10 rounded-full blur-2xl animate-float-slow"></div>
+          <div className="absolute bottom-[15%] right-[5%] w-96 h-96 bg-[#0ea5e9]/10 rounded-full blur-2xl animate-float-medium"></div>
+          <div className="absolute top-[50%] left-[50%] w-80 h-80 bg-[#38bdf8]/10 rounded-full blur-2xl animate-float-fast"></div>
+          <div className="absolute bottom-[40%] left-[15%] w-64 h-64 bg-white/[0.07] rounded-full blur-2xl animate-float-reverse"></div>
+          <div className="absolute top-[25%] right-[20%] w-56 h-56 bg-[#0ea5e9]/[0.07] rounded-full blur-2xl animate-float-slow"></div>
         </div>
         {/* Logo */}
         <div className="mb-8 bg-white/10 backdrop-blur-sm rounded-2xl p-6 relative z-10 hover:scale-105 transition-transform duration-300">
@@ -614,7 +615,7 @@ export default function RegisterPage() {
                   <button
                     type="button"
                     onClick={handleNext}
-                    className="px-6 py-2.5 bg-[#0ea5e9] text-white font-medium rounded-lg hover:bg-[#0284c7] hover:shadow-lg hover:shadow-[#0ea5e9]/25 hover:scale-105 transition-all duration-200 flex items-center"
+                    className="px-8 py-3 bg-[#0ea5e9] text-white font-semibold rounded-xl hover:bg-[#0284c7] hover:shadow-lg hover:shadow-[#0ea5e9]/25 hover:scale-105 transition-all duration-200 flex items-center"
                   >
                     Next
                     <i className="fa-solid fa-chevron-right ml-2"></i>
@@ -623,7 +624,7 @@ export default function RegisterPage() {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="px-6 py-2.5 bg-[#0ea5e9] text-white font-medium rounded-lg hover:bg-[#0284c7] hover:shadow-lg hover:shadow-[#0ea5e9]/25 hover:scale-105 transition-all duration-200 disabled:opacity-50 flex items-center"
+                    className="px-8 py-3 bg-[#0ea5e9] text-white font-semibold rounded-xl hover:bg-[#0284c7] hover:shadow-lg hover:shadow-[#0ea5e9]/25 hover:scale-105 transition-all duration-200 disabled:opacity-50 flex items-center"
                   >
                     {isLoading ? (
                       <>
